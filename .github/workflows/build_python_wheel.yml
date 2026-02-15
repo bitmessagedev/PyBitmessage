@@ -9,6 +9,8 @@ jobs:
         run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-suggests --no-install-recommends python-setuptools python-wheel
+      - name: Checkout
+        run: actions/checkout@v6.0.2
       - name: Build sdist
         run: python2 setup.py sdist
       - name: Build wheel
