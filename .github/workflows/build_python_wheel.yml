@@ -1,0 +1,11 @@
+name: Build Python Wheel
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: buildpack-deps:buster
+    steps:
+      - name: Install build
+        run: pip install build==0.5.1
+      - name: Run build
+        run: python2 -n build
