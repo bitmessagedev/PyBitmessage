@@ -8,8 +8,8 @@ jobs:
       - name: Update apt sources
         run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
       - name: Install dependencies
-        run: apt-get update && apt-get install -y --no-install-suggests --no-install-recommends python2.7 python-configparser python-contextlib2 python-importlib-metadata python-packaging python-pathlib2 python-pip python-pyparsing python-scandir python-setuptools python-singledispatch python-six python-toml python-typing python-wheel python-zipp
-      - name: Install build
-        run: python2 -m pip install --disable-pip-version-check build==0.5.1
-      - name: Run build
-        run: python2 -m build
+        run: apt-get update && apt-get install -y --no-install-suggests --no-install-recommends python-setuptools python-wheel
+      - name: Build sdist
+        run: python2 setup.py sdist
+      - name: Build wheel
+        run: python2 setup.py bdist_wheel
