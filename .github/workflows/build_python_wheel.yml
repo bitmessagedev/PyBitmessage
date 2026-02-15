@@ -6,7 +6,7 @@ jobs:
     container: buildpack-deps:buster
     steps:
       - name: Update apt sources
-        run: echo "deb https://archive.debian.org/debian buster main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
+        run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-suggests --no-install-recommends python2.7 python-pip
       - name: Install build
