@@ -1,9 +1,19 @@
 name: Build Python Wheel
 on: workflow_dispatch
 jobs:
-  build:
+  get-uid:
     runs-on: ubuntu-latest
-    container: buildpack-deps:buster
+    outputs:
+      uid_gid: ${{ steps.get-user.outputs.uid_gid }}
+    steps:
+      - id: get-user
+        run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
+  build:
+    needs: get-uid
+    runs-on: ubuntu-latest
+    container:
+      image: buildpack-deps:buster
+      options: --user ${{ needs.get-uid.outputs.uid_gid }}
     steps:
       - name: Update apt sources
         run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
