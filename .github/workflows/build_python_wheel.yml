@@ -1,23 +1,32 @@
 name: Build Python Wheel
 on: workflow_dispatch
 jobs:
-  build:
+  build-wheel:
     runs-on: ubuntu-latest
-    container:
-      image: buildpack-deps:buster
+    container: buildpack-deps:buster
     steps:
       - name: Update apt sources
         run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-suggests --no-install-recommends python-packaging python-pip python-setuptools python-toml python-typing python-wheel && python2 -m pip install build==0.5.1 importlib-metadata==0.22 pep517==0.12.0 virtualenv==20.15.1
       - name: Checkout
-        run: git clone --depth 1 --no-tags --single-branch https://github.com/bitmessagedev/PyBitmessage
+        uses: actions/checkout@v6
+        #run: git clone --depth 1 --no-tags --single-branch https://github.com/bitmessagedev/PyBitmessage
       - name: Build
         run: python2 -m build
         working-directory: PyBitmessage
-#      - name: Build sdist
-#        run: python2 setup.py sdist
-#        working-directory: PyBitmessage
-#      - name: Build wheel
-#        run: python2 setup.py bdist_wheel
-#        working-directory: PyBitmessage
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: dist
+          path: PyBitmessage/dist
+  build-appimage:
+    runs-on: ubuntu-latest
+    container: debian:buster
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v7
+        with:
+          name: dist
+      - name: List files
+        run: ls -l dist
