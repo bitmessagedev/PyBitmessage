@@ -14,13 +14,13 @@ jobs:
         #run: git clone --depth 1 --no-tags --single-branch https://github.com/bitmessagedev/PyBitmessage
       - name: Build
         run: python2 -m build
-        working-directory: PyBitmessage
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
           name: dist
-          path: PyBitmessage/dist
+          path: dist
   build-appimage:
+    needs: build-wheel
     runs-on: ubuntu-latest
     container: debian:buster
     steps:
