@@ -28,6 +28,6 @@ jobs:
         with:
           name: dist
       - name: Update apt sources
-        run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
+        run: echo "deb http://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb http://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb http://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-recommends python-pip && python2 -m pip install --prefix=/usr --root=AppDir pybitmessage-0.6.3.2-cp27-cp27mu-linux_x86_64.whl
