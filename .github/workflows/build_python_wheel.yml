@@ -12,8 +12,9 @@ jobs:
         run: apt-get update && apt-get install -y --no-install-suggests --no-install-recommends python-setuptools python-wheel
       - name: Checkout
         run: git clone --depth 1 --no-tags --single-branch https://github.com/bitmessagedev/PyBitmessage
-      - run: cd PyBitmessage
       - name: Build sdist
         run: python2 setup.py sdist
+        working-directory: PyBitmessage
       - name: Build wheel
         run: python2 setup.py bdist_wheel
+        working-directory: PyBitmessage
