@@ -1,26 +1,18 @@
 name: Build Python Wheel
 on: workflow_dispatch
 jobs:
-  get-uid:
-    runs-on: ubuntu-latest
-    outputs:
-      uid_gid: ${{ steps.get-user.outputs.uid_gid }}
-    steps:
-      - id: get-user
-        run: echo "::set-output name=uid_gid::$(id -u):$(id -g)"
   build:
-    needs: get-uid
     runs-on: ubuntu-latest
     container:
       image: buildpack-deps:buster
-      options: --user ${{ needs.get-uid.outputs.uid_gid }}
     steps:
       - name: Update apt sources
         run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-suggests --no-install-recommends python-setuptools python-wheel
       - name: Checkout
-        run: actions/checkout@v5
+        run: git clone ${{ github.repositoryUrl }} --depth 1
+      - run: cd PyBitmessage
       - name: Build sdist
         run: python2 setup.py sdist
       - name: Build wheel
