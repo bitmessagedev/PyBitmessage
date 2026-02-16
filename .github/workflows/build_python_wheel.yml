@@ -11,7 +11,7 @@ jobs:
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-suggests --no-install-recommends python-setuptools python-wheel
       - name: Checkout
-        run: git clone ${{ github.repositoryUrl }} --depth 1
+        run: git clone --depth 1 --no-tags --single-branch ${{ github.repositoryUrl }}
       - run: cd PyBitmessage
       - name: Build sdist
         run: python2 setup.py sdist
