@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Update apt sources
         #run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
-        run: sed -i 's/deb\.debian/archive\.debian/g' /etc/apt/source.list
+        run: sed -i 's/deb\.debian/archive\.debian/g' /etc/apt/sources.list
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-recommends python-packaging python-pip python-setuptools python-toml python-typing python-wheel && python2 -m pip install build==0.5.1 importlib-metadata==0.22 pep517==0.12.0 virtualenv==20.15.1
       - name: Checkout
