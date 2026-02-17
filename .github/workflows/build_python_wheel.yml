@@ -42,7 +42,7 @@ jobs:
           APPIMAGE_ARCH: x86_64
           RUNTIME: ${{ env.APPIMAGE_ARCH }}
           APP_VERSION: 0.6.3.2
-        run: ./appimage-builder.AppImage --log DEBUG --recipe packages/AppImage/AppImageBuilder2.yml
+        run: ./appimage-builder.AppImage --appimage-extract-and-run --log DEBUG --recipe packages/AppImage/AppImageBuilder2.yml
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
