@@ -6,7 +6,8 @@ jobs:
     container: buildpack-deps:buster
     steps:
       - name: Update apt sources
-        run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
+        #run: echo "deb https://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb https://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb https://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
+        run: sed -i 's/deb\.debian/archive\.debian/g' /etc/apt/source.list
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-recommends python-packaging python-pip python-setuptools python-toml python-typing python-wheel && python2 -m pip install build==0.5.1 importlib-metadata==0.22 pep517==0.12.0 virtualenv==20.15.1
       - name: Checkout
@@ -31,3 +32,14 @@ jobs:
         run: echo "deb http://archive.debian.org/debian buster main" > /etc/apt/sources.list && echo "deb http://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list && echo "deb http://archive.debian.org/debian buster-updates main" >> /etc/apt/sources.list
       - name: Install dependencies
         run: apt-get update && apt-get install -y --no-install-recommends python-pip && python2 -m pip install --prefix=/usr --root=AppDir pybitmessage-0.6.3.2-cp27-cp27mu-linux_x86_64.whl
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Download AppImage-Builder
+        run: wget -qO appimage-builder.AppImage https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage && chmod +x appimage-builder.AppImage
+      - name: Build AppImage
+        run: ./appimage-builder.AppImage --log DEBUG --recipe packages/AppImage/AppImageBuilder2.yml
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: PyBitmessage.AppImage
+          path: PyBitmesage*.AppImage
