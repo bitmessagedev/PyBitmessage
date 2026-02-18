@@ -43,9 +43,9 @@ jobs:
           APPIMAGE_ARCH: x86_64
           RUNTIME: x86_64
           APP_VERSION: 0.6.3.2
-        run: ./appimage-builder.AppImage --appimage-extract-and-run --log DEBUG --recipe src/packages/AppImage/AppImageBuilder2.yml
+        run: ./appimage-builder.AppImage --appimage-extract-and-run --log INFO --recipe src/packages/AppImage/AppImageBuilder2.yml
       - name: Upload artifact
         uses: actions/upload-artifact@v6
         with:
           name: PyBitmessage.AppImage
-          path: PyBitmesage*.AppImage
+          path: PyBitmessage*.AppImage
