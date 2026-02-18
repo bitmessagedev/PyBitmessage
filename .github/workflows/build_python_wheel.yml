@@ -40,7 +40,7 @@ jobs:
         env:
           ARCH: amd64
           APPIMAGE_ARCH: x86_64
-          RUNTIME: ${{ env.APPIMAGE_ARCH }}
+          RUNTIME: x86_64
           APP_VERSION: 0.6.3.2
         run: ./appimage-builder.AppImage --appimage-extract-and-run --log DEBUG --recipe packages/AppImage/AppImageBuilder2.yml
       - name: Upload artifact
