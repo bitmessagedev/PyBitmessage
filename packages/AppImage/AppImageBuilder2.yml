@@ -5,7 +5,7 @@ AppDir:
   app_info:
     id: pybitmessage
     name: PyBitmessage
-    icon: hicolor/scalable/apps/pybitmessage.svg
+    icon: pybitmessage
     version: !ENV ${APP_VERSION}
     # Set the python executable as entry point
     exec: usr/bin/python
