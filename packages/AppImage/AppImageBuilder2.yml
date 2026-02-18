@@ -15,21 +15,18 @@ AppDir:
 
   after_runtime:
     - sed -i "s|GTK_.*||g" AppDir/AppRun.env
-    - cp packages/AppImage/qt.conf AppDir/usr/bin/
+    - cp src/packages/AppImage/qt.conf AppDir/usr/bin/
 
   apt:
     arch: !ENV '${ARCH}'
     sources:
       - sourceline: 'deb [arch=amd64] https://archive.debian.org/debian buster main'
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x648ACFD622F3D138'
-      - sourceline: 'deb [arch=amd64] https://archive.debian.org/debian buster main'
-        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x0E98404D386FA1D9'
-      - sourceline: 'deb [arch=amd64] https://archive.debian.org/debian buster main'
-        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xDCC9EFBF77E11517'
+        #key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x0E98404D386FA1D9'
+        #key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xDCC9EFBF77E11517'
       - sourceline: 'deb [arch=amd64] https://archive.debian.org/debian-security buster/updates main'
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x112695A0E562B32A'
-      - sourceline: 'deb [arch=amd64] https://archive.debian.org/debian-security buster/updates main'
-        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x54404762BBB6E853'
+        #key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x54404762BBB6E853'
       - sourceline: 'deb [arch=amd64] https://archive.debian.org/debian buster-updates main'
         #key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x648ACFD622F3D138'
         #key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x0E98404D386FA1D9'
