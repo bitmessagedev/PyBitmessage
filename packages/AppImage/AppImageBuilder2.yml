@@ -5,7 +5,7 @@ AppDir:
   app_info:
     id: pybitmessage
     name: PyBitmessage
-    icon: pybitmessage
+    icon: hicolor/scalable/apps/pybitmessage.svg
     version: !ENV ${APP_VERSION}
     # Set the python executable as entry point
     exec: usr/bin/python
@@ -20,6 +20,11 @@ AppDir:
   apt:
     arch: !ENV '${ARCH}'
     sources:
+      - key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x648ACFD622F3D138'
+      - key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x0E98404D386FA1D9'
+      - key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xDCC9EFBF77E11517'
+      - key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x112695A0E562B32A'
+      - key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x54404762BBB6E853'
       - sourceline: 'deb [arch=amd64] https://archive.debian.org/debian buster main'
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x648ACFD622F3D138'
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x0E98404D386FA1D9'
