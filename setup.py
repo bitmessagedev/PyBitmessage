@@ -12,7 +12,6 @@ from setuptools.command.install import install
 from src.version import softwareVersion
 
 EXTRAS_REQUIRE = {
-    'docs': ['sphinx'],
     'gir': ['pygobject'],
     'json': ['jsonrpclib'],
     'notify2': ['notify2'],
@@ -185,9 +184,5 @@ if __name__ == "__main__":
             ] if sys.platform[:3] == 'win' else []
         },
         scripts=['src/pybitmessage'],
-        cmdclass={'install': InstallCmd},
-        command_options={
-            'build_sphinx': {
-                'source_dir': ('setup.py', 'docs')}
-        }
+        cmdclass={'install': InstallCmd}
     )
