@@ -336,48 +336,6 @@ def check_openssl():
     return False
 
 
-# ..todo:: The minimum versions of pythondialog and dialog need to be determined
-def check_curses():
-    """Do curses dependency check.
-
-    Here we are checking for curses if available or not with check as interface
-    requires the `pythondialog <https://pypi.org/project/pythondialog>`_ package
-    and the dialog utility.
-    """
-    if sys.hexversion < 0x20600F0:
-        logger.error(
-            'The curses interface requires the pythondialog package and'
-            ' the dialog utility.')
-        return False
-    curses = try_import('curses')
-    if not curses:
-        logger.error('The curses interface can not be used.')
-        return False
-
-    logger.info('curses Module Version: %s', curses.version)
-
-    dialog = try_import('dialog')
-    if not dialog:
-        logger.error('The curses interface can not be used.')
-        return False
-
-    try:
-        subprocess.check_call(['which', 'dialog'])  # nosec B603, B607
-    except subprocess.CalledProcessError:
-        logger.error(
-            'Curses requires the `dialog` command to be installed as well as'
-            ' the python library.')
-        return False
-
-    logger.info('pythondialog Package Version: %s', dialog.__version__)
-    dialog_util_version = dialog.Dialog().cached_backend_version
-    # The pythondialog author does not like Python2 str, so we have to use
-    # unicode for just the version otherwise we get the repr form which
-    # includes the module and class names along with the actual version.
-    logger.info('dialog Utility Version %s', dialog_util_version.decode('utf-8'))
-    return True
-
-
 def check_pyqt():
     """Do pyqt dependency check.
 
@@ -451,7 +409,7 @@ def check_dependencies(verbose=False, optional=False):
 
     check_functions = [check_ripemd160, check_sqlite, check_openssl]
     if optional:
-        check_functions.extend([check_msgpack, check_pyqt, check_curses])
+        check_functions.extend([check_msgpack, check_pyqt])
 
     # Unexpected exceptions are handled here
     for check in check_functions:

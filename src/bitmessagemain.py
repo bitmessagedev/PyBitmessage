@@ -93,7 +93,7 @@ class Main(object):
         try:
             opts, _ = getopt.getopt(
                 sys.argv[1:], "hcdt",
-                ["help", "curses", "daemon", "test"])
+                ["help", "daemon", "test"])
 
         except getopt.GetoptError:
             self.usage()
@@ -105,8 +105,6 @@ class Main(object):
                 sys.exit()
             elif opt in ("-d", "--daemon"):
                 daemon = True
-            elif opt in ("-c", "--curses"):
-                state.curses = True
             elif opt in ("-t", "--test"):
                 state.testmode = True
                 if os.path.isfile(os.path.join(
@@ -132,7 +130,7 @@ class Main(object):
         if daemon:
             state.enableGUI = False  # run without a UI
 
-        if state.enableGUI and not state.curses and not depends.check_pyqt():
+        if state.enableGUI and not depends.check_pyqt():
             sys.exit(
                 'PyBitmessage requires PyQt unless you want'
                 ' to run it as a daemon and interact with it'
@@ -140,10 +138,7 @@ class Main(object):
                 'http://www.riverbankcomputing.com/software/pyqt/download'
                 ' or by searching Google for \'PyQt Download\'.'
                 ' If you want to run in daemon mode, see '
-                'https://bitmessage.org/wiki/Daemon\n'
-                'You can also run PyBitmessage with'
-                ' the new curses interface by providing'
-                ' \'-c\' as a commandline argument.'
+                'https://bitmessage.org/wiki/Daemon'
             )
         # is the application already running?  If yes then exit.
         state.thisapp = singleinstance("", daemon)
@@ -234,15 +229,8 @@ class Main(object):
             network.connectionpool.pool.connectToStream(1)
 
         if not daemon and state.enableGUI:
-            if state.curses:
-                if not depends.check_curses():
-                    sys.exit()
-                print('Running with curses')
-                import bitmessagecurses
-                bitmessagecurses.runwrapper()
-            else:
-                import bitmessageqt
-                bitmessageqt.run()
+            import bitmessageqt
+            bitmessageqt.run()
         else:
             config.remove_option('bitmessagesettings', 'dontconnect')
 
@@ -342,7 +330,6 @@ class Main(object):
         print('''
 Options:
   -h, --help            show this help message and exit
-  -c, --curses          use curses (text mode) interface
   -d, --daemon          run in daemon (background) mode
   -t, --test            dryrun, make testing
 

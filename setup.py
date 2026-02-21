@@ -64,7 +64,6 @@ if __name__ == "__main__":
     packages = [
         'pybitmessage',
         'pybitmessage.bitmessageqt',
-        'pybitmessage.bitmessagecurses',
         'pybitmessage.fallback',
         'pybitmessage.messagetypes',
         'pybitmessage.network',

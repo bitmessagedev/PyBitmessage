@@ -28,12 +28,11 @@ enableObjProc = True
 enableAPI = True
 """enable API (if configured)"""
 enableGUI = True
-"""enable GUI (QT or ncurses)"""
+"""enable GUI (QT)"""
 enableSTDIO = False
 """enable STDIO threads"""
 enableKivy = False
 """enable kivy app and test cases"""
-curses = False
 
 maximumNumberOfHalfOpenConnections = 0
 
