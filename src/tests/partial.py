@@ -23,11 +23,6 @@ class TestPartialRun(unittest.TestCase):
         import state
 
         from debug import logger  # noqa:F401 pylint: disable=unused-variable
-        if sys.hexversion >= 0x3000000:
-            # pylint: disable=no-name-in-module,relative-import
-            from mockbm import network as network_mock
-            import network
-            network.stats = network_mock.stats
 
         state.shutdown = 0
         cls.state = state

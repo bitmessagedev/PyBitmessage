@@ -31,8 +31,6 @@ enableGUI = True
 """enable GUI (QT)"""
 enableSTDIO = False
 """enable STDIO threads"""
-enableKivy = False
-"""enable kivy app and test cases"""
 
 maximumNumberOfHalfOpenConnections = 0
 
@@ -41,10 +39,6 @@ maximumLengthOfTimeToBotherResendingMessages = 0
 ownAddresses = {}
 
 discoveredPeers = {}
-
-kivy = False
-
-kivyapp = None
 
 testmode = False
 
