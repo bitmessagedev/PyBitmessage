@@ -11,7 +11,6 @@ import threading
 import time
 from binascii import hexlify
 
-import helper_bitcoin
 import helper_inbox
 import helper_msgcoding
 import helper_sent
@@ -564,18 +563,7 @@ class objectProcessor(threading.Thread):
                 signedData, signature, hexlify(pubSigningKey)):
             return logger.debug('ECDSA verify failed')
         logger.debug('ECDSA verify passed')
-        if logger.isEnabledFor(logging.DEBUG):
-            logger.debug(
-                'As a matter of intellectual curiosity, here is the Bitcoin'
-                ' address associated with the keys owned by the other person:'
-                ' %s  ..and here is the testnet address: %s. The other person'
-                ' must take their private signing key from Bitmessage and'
-                ' import it into Bitcoin (or a service like Blockchain.info)'
-                ' for it to be of any use. Do not use this unless you know'
-                ' what you are doing.',
-                helper_bitcoin.calculateBitcoinAddressFromPubkey(pubSigningKey),
-                helper_bitcoin.calculateTestnetAddressFromPubkey(pubSigningKey)
-            )
+
         # Used to detect and ignore duplicate messages in our inbox
         sigHash = highlevelcrypto.double_sha512(signature)[32:]
 
