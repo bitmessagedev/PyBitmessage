@@ -12,7 +12,7 @@ import paths
 from network.advanceddispatcher import AdvancedDispatcher
 from network import receiveDataQueue
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 _DISCONNECTED_SSL = frozenset((ssl.SSL_ERROR_EOF,))
 

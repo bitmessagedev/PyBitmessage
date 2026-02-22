@@ -7,7 +7,7 @@ import struct
 
 from proxy import GeneralProxyError, Proxy, ProxyError
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class Socks4aError(ProxyError):

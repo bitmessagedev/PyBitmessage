@@ -19,7 +19,7 @@ MAX_STEMS = 2
 
 Stem = namedtuple('Stem', ['child', 'stream', 'timeout'])
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class Dandelion:

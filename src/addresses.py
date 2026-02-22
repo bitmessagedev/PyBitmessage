@@ -12,7 +12,7 @@ except ImportError:
     from .highlevelcrypto import double_sha512
 
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 

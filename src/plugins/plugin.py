@@ -7,7 +7,7 @@ import logging
 import pkg_resources
 
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 def get_plugins(group, point='', name=None, fallback=None):

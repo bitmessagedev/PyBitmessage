@@ -3,6 +3,7 @@ Complete UPnP port forwarding implementation in separate thread.
 Reference: http://mattscodecave.com/posts/using-python-and-upnp-to-forward-a-port.html
 """
 
+import logging
 import re
 import socket
 import time
@@ -18,10 +19,11 @@ import queues
 import state
 import tr
 from bmconfigparser import config
-from debug import logger
 from network import StoppableThread, connectionpool, knownnodes
 from network.node import Peer
 
+
+logger = logging.getLogger(__name__)
 
 def createRequestXML(service, action, arguments=None):
     """Router UPnP requests are XML formatted"""

@@ -1,5 +1,6 @@
 """shutdown function"""
 
+import logging
 import os
 import threading
 import time
@@ -7,13 +8,14 @@ import time
 from six.moves import queue
 
 import state
-from debug import logger
 from helper_sql import sqlQuery, sqlStoredProcedure
 from network import StoppableThread
 from network.knownnodes import saveKnownNodes
 from queues import (
     addressGeneratorQueue, objectProcessorQueue, UISignalQueue, workerQueue)
 
+
+logger = logging.getLogger(__name__)
 
 def doCleanShutdown():
     """

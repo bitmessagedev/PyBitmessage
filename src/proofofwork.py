@@ -4,6 +4,7 @@ Proof of work calculation
 
 import ctypes
 import hashlib
+import logging
 import os
 import subprocess
 import sys
@@ -17,12 +18,13 @@ import paths
 import queues
 import state
 from bmconfigparser import config
-from debug import logger
 from defaults import (
     networkDefaultProofOfWorkNonceTrialsPerByte,
     networkDefaultPayloadLengthExtraBytes)
 from tr import _translate
 
+
+logger = logging.getLogger(__name__)
 
 bitmsglib = 'bitmsghash.so'
 bmpow = None

@@ -10,7 +10,7 @@ from threading import RLock
 from paths import lookupAppdataFolder
 from .storage import InventoryItem, InventoryStorage
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class FilesystemInventory(InventoryStorage):

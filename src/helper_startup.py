@@ -29,7 +29,7 @@ except ImportError:
     get_plugin = None
 
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 # The user may de-select Portable Mode in the settings if they want
 # the config files to stay in the application data folder.

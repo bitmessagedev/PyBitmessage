@@ -10,7 +10,7 @@ from six.moves import range
 
 from bmconfigparser import config
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 DEFAULT_ENCODING = 'ISO8859-1'
 DEFAULT_LANGUAGE = 'en_US'

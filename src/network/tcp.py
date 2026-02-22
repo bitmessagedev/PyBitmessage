@@ -31,7 +31,7 @@ from network.tls import TLSDispatcher
 from node import Peer
 
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 maximumAgeOfNodesThatIAdvertiseToOthers = 10800  #: Equals three hours

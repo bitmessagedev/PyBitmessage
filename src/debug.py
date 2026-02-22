@@ -110,28 +110,14 @@ def configureLogging():
                 'encoding': 'UTF-8',
             }
         },
-        'loggers': {
-            'console_only': {
-                'handlers': ['console'],
-                'propagate': 0
-            },
-            'file_only': {
-                'handlers': ['file'],
-                'propagate': 0
-            },
-            'both': {
-                'handlers': ['console', 'file'],
-                'propagate': 0
-            },
-        },
         'root': {
             'level': log_level,
-            'handlers': ['console'],
+            'handlers': ['file'],
         },
     }
 
-    logging_config['loggers']['default'] = logging_config['loggers'][
-        'file_only' if '-c' in sys.argv else 'both']
+    if '-c' not in sys.argv:
+        logging_config['root']['handlers'].append('console')
     logging.config.dictConfig(logging_config)
 
     return True, fail_msg
@@ -139,18 +125,15 @@ def configureLogging():
 
 def resetLogging():
     """Reconfigure logging in runtime when state.appdata dir changed"""
-    global logger
-    for i in logger.handlers:
-        logger.removeHandler(i)
-        i.flush()
-        i.close()
-    configureLogging()
-    logger = logging.getLogger('default')
 
-
-# !
-
-preconfigured, msg = configureLogging()
-logger = logging.getLogger('default')
-if msg:
-    logger.log(logging.WARNING if preconfigured else logging.INFO, msg)
+    # This function is now a no-op in preparation for removing the ability to
+    # switch portable mode on/off at runtime. That feature just adds
+    # unnecessary complexity.
+    #global logger
+    #for i in logger.handlers:
+    #    logger.removeHandler(i)
+    #    i.flush()
+    #    i.close()
+    #configureLogging()
+    #logger = logging.getLogger('default')
+    pass

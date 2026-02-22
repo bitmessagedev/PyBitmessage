@@ -9,6 +9,7 @@ from __future__ import division
 
 # Libraries.
 import hashlib
+import logging
 import os
 import stat
 import subprocess
@@ -22,8 +23,10 @@ import highlevelcrypto
 import state
 from addresses import decodeAddress, encodeVarint
 from bmconfigparser import config
-from debug import logger
 from helper_sql import sqlQuery
+
+
+logger = logging.getLogger(__name__)
 
 myECCryptorObjects = {}
 MyECSubscriptionCryptorObjects = {}

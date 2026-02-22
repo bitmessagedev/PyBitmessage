@@ -1,6 +1,6 @@
 import logging
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class MsgBase(object):

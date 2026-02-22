@@ -61,6 +61,7 @@ import base64
 import errno
 import hashlib
 import json
+import logging
 import random
 import socket
 import subprocess
@@ -83,12 +84,13 @@ import state
 from addresses import (addBMIfNotPresent, decodeAddress, decodeVarint,
                        varintDecodeError)
 from bmconfigparser import config
-from debug import logger
 from defaults import (networkDefaultPayloadLengthExtraBytes,
                       networkDefaultProofOfWorkNonceTrialsPerByte)
 from helper_sql import (SqlBulkExecute, sql_ready, sqlExecute, sqlQuery,
                         sqlStoredProcedure)
 from highlevelcrypto import calculateInventoryHash
+
+logger = logging.getLogger(__name__)
 
 try:
     from network import connectionpool

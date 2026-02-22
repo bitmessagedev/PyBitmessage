@@ -9,7 +9,7 @@ from contextlib import contextmanager
 class StoppableThread(threading.Thread):
     """Base class for application threads with stopThread method"""
     name = None
-    logger = logging.getLogger('default')
+    logger = logging.getLogger(__name__)
 
     def __init__(self, name=None):
         if name:

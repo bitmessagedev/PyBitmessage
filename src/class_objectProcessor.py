@@ -31,7 +31,7 @@ from network import knownnodes, invQueue
 from network.node import Peer
 from tr import _translate
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class objectProcessor(threading.Thread):

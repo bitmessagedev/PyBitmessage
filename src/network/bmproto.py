@@ -31,7 +31,7 @@ from node import Node, Peer
 from objectracker import ObjectTracker, missingObjects
 
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class BMProtoError(ProxyError):

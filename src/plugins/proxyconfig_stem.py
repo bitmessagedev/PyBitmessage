@@ -26,7 +26,7 @@ import stem.version
 class DebugLogger(object):
     """Safe logger wrapper for tor and plugin's logs"""
     def __init__(self):
-        self._logger = logging.getLogger('default')
+        self._logger = logging.getLogger(__name__)
         self._levels = {
             'err': 40,
             'warn': 30,

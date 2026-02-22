@@ -10,7 +10,7 @@ import connectionpool
 from network import dandelion_ins
 from highlevelcrypto import calculateInventoryHash
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class BMObjectInsufficientPOWError(Exception):

@@ -21,7 +21,8 @@ class TestPartialRun(unittest.TestCase):
         import bmconfigparser
         import state
 
-        from debug import logger
+        from debug import configureLogging
+        configureLogging()
 
         state.shutdown = 0
         cls.state = state

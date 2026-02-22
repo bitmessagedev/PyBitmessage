@@ -33,7 +33,7 @@ knownNodesForgetRating = -0.5
 
 knownNodesActual = False
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 DEFAULT_NODES = (
     Peer('5.45.99.75', 8444),

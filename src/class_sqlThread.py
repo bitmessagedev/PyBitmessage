@@ -2,6 +2,7 @@
 sqlThread is defined here
 """
 
+import logging
 import os
 import shutil  # used for moving the messages.dat file
 import sqlite3
@@ -19,15 +20,15 @@ try:
     import state
     from addresses import encodeAddress
     from bmconfigparser import config, config_ready
-    from debug import logger
     from tr import _translate
 except ImportError:
     from . import helper_sql, helper_startup, paths, queues, state
     from .addresses import encodeAddress
     from .bmconfigparser import config, config_ready
-    from .debug import logger
     from .tr import _translate
 
+
+logger = logging.getLogger(__name__)
 
 class sqlThread(threading.Thread):
     """A thread for all SQL operations"""

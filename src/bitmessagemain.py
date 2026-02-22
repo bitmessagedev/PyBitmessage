@@ -23,6 +23,7 @@ import depends
 depends.check_dependencies()
 
 import getopt
+import logging
 import multiprocessing
 # Used to capture a Ctrl-C keypress so that Bitmessage can shutdown gracefully.
 import signal
@@ -38,7 +39,8 @@ import state
 
 from testmode_init import populate_api_test_data
 from bmconfigparser import config
-from debug import logger  # this should go before any threads
+from debug import configureLogging  # this should go before any threads
+configureLogging()
 from helper_startup import (
     adjustHalfOpenConnectionsLimit, fixSocket, start_proxyconfig)
 from inventory import Inventory
@@ -48,6 +50,8 @@ from threads import (
     set_thread_name, printLock,
     addressGenerator, objectProcessor, singleCleaner, singleWorker, sqlThread)
 
+
+logger = logging.getLogger(__name__)
 
 def signal_handler(signum, frame):
     """Single handler for any signal sent to pybitmessage"""

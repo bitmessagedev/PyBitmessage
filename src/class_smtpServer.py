@@ -24,7 +24,7 @@ from version import softwareVersion
 SMTPDOMAIN = "bmaddr.lan"
 LISTENPORT = 8425
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class SmtpServerChannelException(Exception):

@@ -2,13 +2,16 @@
 Message encoding end decoding functions
 """
 
+import logging
 import string
 import zlib
 
 import messagetypes
 from bmconfigparser import config
-from debug import logger
 from tr import _translate
+
+
+logger = logging.getLogger(__name__)
 
 try:
     import msgpack

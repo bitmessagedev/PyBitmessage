@@ -9,7 +9,7 @@ import struct
 from node import Peer
 from proxy import GeneralProxyError, Proxy, ProxyError
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class Socks5AuthError(ProxyError):

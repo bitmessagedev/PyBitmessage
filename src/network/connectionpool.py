@@ -22,7 +22,7 @@ from tcp import (
     TCPConnection, TCPServer)
 from udp import UDPSocket
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class BMConnectionPool(object):

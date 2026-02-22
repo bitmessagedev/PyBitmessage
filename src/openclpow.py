@@ -17,7 +17,7 @@ except ImportError:
     libAvailable = False
 
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 ctx = False
 queue = False

@@ -13,7 +13,7 @@ import state
 from bmconfigparser import config
 from network import portCheckerQueue
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 def getDiscoveredPeer():

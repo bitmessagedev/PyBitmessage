@@ -10,7 +10,7 @@ from advanceddispatcher import AdvancedDispatcher
 from bmconfigparser import config
 from node import Peer
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class ProxyError(Exception):

@@ -2,7 +2,7 @@ import logging
 
 from .message import MsgBase
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class Vote(MsgBase):

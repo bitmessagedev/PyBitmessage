@@ -2,7 +2,7 @@ import logging
 
 from importlib import import_module
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 def constructObject(data):

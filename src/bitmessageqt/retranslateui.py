@@ -1,6 +1,5 @@
 from os import path
 from PyQt4 import QtGui
-from debug import logger
 import widgets
 
 class RetranslateMixin(object):

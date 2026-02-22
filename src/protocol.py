@@ -4,6 +4,7 @@ Low-level protocol-related functions.
 
 import base64
 import hashlib
+import logging
 import random
 import socket
 import sys
@@ -17,10 +18,12 @@ import state
 from addresses import (decodeAddress, decodeVarint, encodeVarint,
                        varintDecodeError)
 from bmconfigparser import config
-from debug import logger
 from helper_sql import sqlExecute
 from network.node import Peer
 from version import softwareVersion
+
+
+logger = logging.getLogger(__name__)
 
 # Network constants
 magic = 0xE9BEB4D9

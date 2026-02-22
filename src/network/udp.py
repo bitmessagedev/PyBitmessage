@@ -16,7 +16,7 @@ from node import Peer
 from objectracker import ObjectTracker
 
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 
 class UDPSocket(BMProto):

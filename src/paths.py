@@ -8,7 +8,7 @@ import sys
 from datetime import datetime
 from shutil import move
 
-logger = logging.getLogger('default')
+logger = logging.getLogger(__name__)
 
 # When using py2exe or py2app, the variable frozen is added to the sys
 # namespace.  This can be used to setup a different code path for
