@@ -3,7 +3,7 @@ import logging
 logger = logging.getLogger('default')
 
 
-class MsgBase(object):  # pylint: disable=too-few-public-methods
+class MsgBase(object):
     """Base class for message types"""
     def __init__(self):
         self.data = {"": type(self).__name__.lower()}
@@ -11,7 +11,6 @@ class MsgBase(object):  # pylint: disable=too-few-public-methods
 
 class Message(MsgBase):
     """Encapsulate a message"""
-    # pylint: disable=attribute-defined-outside-init
 
     def decode(self, data):
         """Decode a message"""

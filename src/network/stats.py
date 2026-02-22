@@ -28,7 +28,6 @@ def sentBytes():
 
 def uploadSpeed():
     """Getting upload speed"""
-    # pylint: disable=global-statement
     global lastSentTimestamp, lastSentBytes, currentSentSpeed
     currentTimestamp = time.time()
     if int(lastSentTimestamp) < int(currentTimestamp):
@@ -48,7 +47,6 @@ def receivedBytes():
 
 def downloadSpeed():
     """Getting download speed"""
-    # pylint: disable=global-statement
     global lastReceivedTimestamp, lastReceivedBytes, currentReceivedSpeed
     currentTimestamp = time.time()
     if int(lastReceivedTimestamp) < int(currentTimestamp):

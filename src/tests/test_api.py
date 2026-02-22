@@ -9,7 +9,7 @@ from binascii import hexlify
 
 import psutil
 import six
-from six.moves import xmlrpc_client  # nosec
+from six.moves import xmlrpc_client
 
 from .samples import (
     sample_deterministic_addr3, sample_deterministic_addr4, sample_seed,

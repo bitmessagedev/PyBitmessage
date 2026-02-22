@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """Custom tests runner script for tox and python3"""
-import random  # noseq
+import random
 import sys
 import unittest
 

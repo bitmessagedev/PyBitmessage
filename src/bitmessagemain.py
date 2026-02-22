@@ -84,7 +84,6 @@ class Main(object):
     """Main PyBitmessage class"""
     def start(self):
         """Start main application"""
-        # pylint: disable=too-many-statements,too-many-branches,too-many-locals
         fixSocket()
         adjustHalfOpenConnectionsLimit()
 
@@ -204,7 +203,7 @@ class Main(object):
 
             # API is also objproc dependent
             if config.safeGetBoolean('bitmessagesettings', 'apienabled'):
-                import api  # pylint: disable=relative-import
+                import api
                 singleAPIThread = api.singleAPI()
                 # close the main program even if there are threads left
                 singleAPIThread.daemon = True
@@ -248,7 +247,6 @@ class Main(object):
         elif not state.enableGUI:
             state.enableGUI = True
             try:
-                # pylint: disable=relative-import
                 from tests import core as test_core
             except ImportError:
                 try:
@@ -274,7 +272,7 @@ class Main(object):
                 # wait until grandchild ready
                 while True:
                     time.sleep(1)
-                os._exit(0)  # pylint: disable=protected-access
+                os._exit(0)
         except AttributeError:
             # fork not implemented
             pass
@@ -295,7 +293,7 @@ class Main(object):
                 # wait until child ready
                 while True:
                     time.sleep(1)
-                os._exit(0)  # pylint: disable=protected-access
+                os._exit(0)
         except AttributeError:
             # fork not implemented
             pass

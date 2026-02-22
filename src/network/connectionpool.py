@@ -27,7 +27,6 @@ logger = logging.getLogger('default')
 
 class BMConnectionPool(object):
     """Pool of all existing connections"""
-    # pylint: disable=too-many-instance-attributes
     trustedPeer = None
     """
     If the trustedpeer option is specified in keys.dat then this will
@@ -209,7 +208,7 @@ class BMConnectionPool(object):
             connection_base = TCPConnection
         elif proxy_type == 'SOCKS5':
             connection_base = Socks5BMConnection
-            hostname = random.choice([  # nosec B311
+            hostname = random.choice([
                 'quzwelsuziwqgpt2.onion', None
             ])
         elif proxy_type == 'SOCKS4a':
@@ -221,15 +220,14 @@ class BMConnectionPool(object):
 
         bootstrapper = bootstrap(connection_base)
         if not hostname:
-            port = random.choice([8080, 8444])  # nosec B311
+            port = random.choice([8080, 8444])
             hostname = 'bootstrap%s.bitmessage.org' % port
         else:
             port = 8444
         self.addConnection(bootstrapper(hostname, port))
 
-    def loop(self):  # pylint: disable=too-many-branches,too-many-statements
+    def loop(self):
         """Main Connectionpool's loop"""
-        # pylint: disable=too-many-locals
         # defaults to empty loop if outbound connections are maxed
         spawnConnections = False
         acceptConnections = True
@@ -252,7 +250,6 @@ class BMConnectionPool(object):
         ):
             acceptConnections = False
 
-        # pylint: disable=too-many-nested-blocks
         if spawnConnections:
             if not knownnodes.knownNodesActual:
                 self.startBootstrappers()
@@ -288,7 +285,7 @@ class BMConnectionPool(object):
                         state.maximumNumberOfHalfOpenConnections - pending):
                     try:
                         chosen = self.trustedPeer or chooseConnection(
-                            random.choice(self.streams))  # nosec B311
+                            random.choice(self.streams))
                     except ValueError:
                         continue
                     if chosen in self.outboundConnections:

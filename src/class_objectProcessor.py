@@ -2,13 +2,11 @@
 The objectProcessor thread, of which there is only one,
 processes the network objects
 """
-# pylint: disable=too-many-locals,too-many-return-statements
-# pylint: disable=too-many-branches,too-many-statements
 import hashlib
 import logging
 import os
 import random
-import subprocess  # nosec B404
+import subprocess
 import threading
 import time
 from binascii import hexlify
@@ -47,7 +45,7 @@ class objectProcessor(threading.Thread):
         random.seed()
         if sql_ready.wait(sql_timeout) is False:
             logger.fatal('SQL thread is not started in %s sec', sql_timeout)
-            os._exit(1)  # pylint: disable=protected-access
+            os._exit(1)
         shared.reloadMyAddressHashes()
         shared.reloadBroadcastSendersForWhichImWatching()
         # It may be the case that the last time Bitmessage was running,
@@ -457,7 +455,7 @@ class objectProcessor(threading.Thread):
 
         for key, cryptorObject in sorted(
                 shared.myECCryptorObjects.items(),
-                key=lambda x: random.random()):  # nosec B311
+                key=lambda x: random.random()):
             try:
                 # continue decryption attempts to avoid timing attacks
                 if initialDecryptionSuccessful:
@@ -472,7 +470,7 @@ class objectProcessor(threading.Thread):
                     logger.info(
                         'EC decryption successful using key associated'
                         ' with ripe hash: %s.', hexlify(key))
-            except Exception:  # nosec B110
+            except Exception:
                 pass
         if not initialDecryptionSuccessful:
             # This is not a message bound for me.
@@ -676,7 +674,7 @@ class objectProcessor(threading.Thread):
                 apiNotifyPath = config.safeGet(
                     'bitmessagesettings', 'apinotifypath')
                 if apiNotifyPath:
-                    subprocess.call([apiNotifyPath, "newMessage"])  # nosec B603
+                    subprocess.call([apiNotifyPath, "newMessage"])
 
             # Let us now check and see whether our receiving address is
             # behaving as a mailing list
@@ -778,7 +776,7 @@ class objectProcessor(threading.Thread):
             initialDecryptionSuccessful = False
             for key, cryptorObject in sorted(
                     shared.MyECSubscriptionCryptorObjects.items(),
-                    key=lambda x: random.random()):  # nosec B311
+                    key=lambda x: random.random()):
                 try:
                     # continue decryption attempts to avoid timing attacks
                     if initialDecryptionSuccessful:
@@ -964,7 +962,7 @@ class objectProcessor(threading.Thread):
             apiNotifyPath = config.safeGet(
                 'bitmessagesettings', 'apinotifypath')
             if apiNotifyPath:
-                subprocess.call([apiNotifyPath, "newBroadcast"])  # nosec B603
+                subprocess.call([apiNotifyPath, "newBroadcast"])
 
         # Display timing data
         logger.info(

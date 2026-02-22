@@ -32,7 +32,6 @@ pubkey_sha = _sha.digest()
 
 class RIPEMD160TestCase(object):
     """Base class for RIPEMD160 test case"""
-    # pylint: disable=too-few-public-methods,no-member
     __metaclass__ = ABCMeta
 
     @abstractmethod
@@ -75,7 +74,6 @@ class TestHighlevelcrypto(unittest.TestCase):
 
     def test_bm160(self):
         """Formally check highlevelcrypto._bm160()"""
-        # pylint: disable=protected-access
         self.assertEqual(
             highlevelcrypto._bm160(sample_hash_data), sample_bm160)
 

@@ -46,8 +46,8 @@ class InvThread(StoppableThread):
                 continue
             connection.objectsNewToThem[hashId] = time()
 
-    def run(self):  # pylint: disable=too-many-branches
-        while not state.shutdown:  # pylint: disable=too-many-nested-blocks
+    def run(self):
+        while not state.shutdown:
             chunk = []
             while True:
                 # Dandelion fluff trigger by expiration
@@ -77,7 +77,7 @@ class InvThread(StoppableThread):
                             if connection == dandelion_ins.objectChildStem(inv[1]):
                                 # Fluff trigger by RNG
                                 # auto-ignore if config set to 0, i.e. dandelion is off
-                                if random.randint(1, 100) >= dandelion_ins.enabled:  # nosec B311
+                                if random.randint(1, 100) >= dandelion_ins.enabled:
                                     fluffs.append(inv[1])
                                 # send a dinv only if the stem node supports dandelion
                                 elif connection.services & protocol.NODE_DANDELION > 0:

@@ -1,7 +1,6 @@
 """
 Operations with addresses
 """
-# pylint: disable=inconsistent-return-statements
 
 import logging
 from binascii import hexlify, unhexlify
@@ -176,8 +175,6 @@ def decodeAddress(address):
     returns (status, address version number, stream number,
     data (almost certainly a ripe hash))
     """
-    # pylint: disable=too-many-return-statements,too-many-statements
-    # pylint: disable=too-many-branches
 
     address = str(address).strip()
 

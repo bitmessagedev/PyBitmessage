@@ -44,7 +44,7 @@ class singleCleaner(StoppableThread):
     cycleLength = 300
     expireDiscoveredPeers = 300
 
-    def run(self):  # pylint: disable=too-many-branches
+    def run(self):
         gc.disable()
         timeWeLastClearedInventoryAndPubkeysTables = 0
         try:
@@ -56,7 +56,7 @@ class singleCleaner(StoppableThread):
                 config.getfloat(
                     'bitmessagesettings', 'stopresendingafterxmonths')
                 * (60 * 60 * 24 * 365) / 12)
-        except:  # noqa:E722
+        except:
             # Either the user hasn't set stopresendingafterxdays and
             # stopresendingafterxmonths yet or the options are missing
             # from the config file.
@@ -126,7 +126,7 @@ class singleCleaner(StoppableThread):
                     ))
                     # FIXME redundant?
                     if state.thisapp.daemon or not state.enableGUI:
-                        os._exit(1)  # pylint: disable=protected-access
+                        os._exit(1)
 
             # inv/object tracking
             for connection in connectionpool.pool.connections():

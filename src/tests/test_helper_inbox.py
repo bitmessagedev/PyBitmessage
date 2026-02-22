@@ -23,7 +23,7 @@ class TestHelperInbox(unittest.TestCase):
     """Test class for Helper Inbox"""
 
     @patch("pybitmessage.helper_inbox.sqlExecute")
-    def test_insert(self, mock_sql_execute):  # pylint: disable=no-self-use
+    def test_insert(self, mock_sql_execute):
         """Test to perform an insert into the "inbox" table"""
         mock_message_data = (
             "ruyv87bv",
@@ -41,21 +41,21 @@ class TestHelperInbox(unittest.TestCase):
         mock_sql_execute.assert_called_once()
 
     @patch("pybitmessage.helper_inbox.sqlExecute")
-    def test_trash(self, mock_sql_execute):  # pylint: disable=no-self-use
+    def test_trash(self, mock_sql_execute):
         """Test marking a message in the `inbox` as `trash`"""
         mock_msg_id = "fefkosghsbse92"
         trash(msgid=mock_msg_id)
         mock_sql_execute.assert_called_once()
 
     @patch("pybitmessage.helper_inbox.sqlExecute")
-    def test_delete(self, mock_sql_execute):  # pylint: disable=no-self-use
+    def test_delete(self, mock_sql_execute):
         """Test for permanent deletion of message from trash"""
         mock_ack_data = genAckPayload()
         delete(mock_ack_data)
         mock_sql_execute.assert_called_once()
 
     @patch("pybitmessage.helper_inbox.sqlExecute")
-    def test_undeleteMessage(self, mock_sql_execute):  # pylint: disable=no-self-use
+    def test_undeleteMessage(self, mock_sql_execute):
         """Test for Undelete the message"""
         mock_msg_id = "fefkosghsbse92"
         undeleteMessage(msgid=mock_msg_id)

@@ -11,7 +11,7 @@ from __future__ import division
 import hashlib
 import os
 import stat
-import subprocess  # nosec B404
+import subprocess
 import sys
 from binascii import hexlify
 
@@ -178,13 +178,13 @@ def checkSensitiveFilePermissions(filename):
         fstype = subprocess.check_output(
             ['/usr/bin/stat', '-f', '-c', '%T', filename],
             stderr=subprocess.STDOUT
-        )  # nosec B603
+        )
         if 'fuseblk' in fstype:
             logger.info(
                 'Skipping file permissions check for %s.'
                 ' Filesystem fuseblk detected.', filename)
             return True
-    except:  # noqa:E722
+    except:
         # Swallow exception here, but we might run into trouble later!
         logger.error('Could not determine filesystem type. %s', filename)
     present_permissions = os.stat(filename)[0]

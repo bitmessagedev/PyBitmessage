@@ -1,7 +1,6 @@
 """
 Set proxy if avaiable otherwise exception
 """
-# pylint: disable=protected-access
 import logging
 import socket
 import time

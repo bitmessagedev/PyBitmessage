@@ -14,7 +14,6 @@ class translateClass:
     This is used so that the translateText function can be used
     when we are in daemon mode and not using any QT functions.
     """
-    # pylint: disable=old-style-class,too-few-public-methods
     def __init__(self, context, text):
         self.context = context
         self.text = text
@@ -29,7 +28,6 @@ class translateClass:
 
 
 def _translate(context, text, disambiguation=None, encoding=None, n=None):
-    # pylint: disable=unused-argument
     return translateText(context, text, n)
 
 
@@ -49,7 +47,7 @@ def translateText(context, text, n=None):
                   ' or by searching Google for \'PyQt Download\'.'
                   ' If you want to run in daemon mode, see https://bitmessage.org/wiki/Daemon')
             print('Error message:', err)
-            os._exit(0)  # pylint: disable=protected-access
+            os._exit(0)
         if n is None:
             return QtGui.QApplication.translate(context, text)
         return QtGui.QApplication.translate(context, text, None, QtCore.QCoreApplication.CodecForTr, n)

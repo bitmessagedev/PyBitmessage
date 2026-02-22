@@ -1,7 +1,6 @@
 """
 Tests for proofofwork module
 """
-# pylint: disable=protected-access
 
 import hashlib
 import os
@@ -42,7 +41,6 @@ class TestProofofworkBase(TestPartialRun):
         self.assertTrue(
             protocol.isProofOfWorkSufficient(pack('>Q', nonce) + payload))
 
-        # pylint: disable=import-outside-toplevel
         from class_singleWorker import singleWorker
 
         self.assertTrue(protocol.isProofOfWorkSufficient(
@@ -73,10 +71,8 @@ class TestProofofwork(TestProofofworkBase):
                 pack('>Q', nonce) + payload, 2000, 2000,
                 int(time.time()) + TTL - 3600))
 
-        # pylint: disable=import-outside-toplevel
         from class_singleWorker import singleWorker
 
-        # pylint: disable=no-member
         with self.assertLogs('default') as cm:
             self.assertTrue(protocol.isProofOfWorkSufficient(
                 singleWorker._doPOWDefaults(payload, TTL, log_prefix='+')))

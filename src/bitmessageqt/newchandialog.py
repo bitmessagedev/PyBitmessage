@@ -37,7 +37,7 @@ class NewChanDialog(QtGui.QDialog):
                 False))
 
         self.timer = QtCore.QTimer()
-        QtCore.QObject.connect(  # pylint: disable=no-member
+        QtCore.QObject.connect(
             self.timer, QtCore.SIGNAL("timeout()"), self.delayedUpdateStatus)
         self.timer.start(500)  # milliseconds
         self.setAttribute(QtCore.Qt.WA_DeleteOnClose)

@@ -63,7 +63,7 @@ import hashlib
 import json
 import random
 import socket
-import subprocess  # nosec B404
+import subprocess
 import time
 from binascii import hexlify, unhexlify
 from struct import pack, unpack
@@ -244,7 +244,7 @@ class singleAPI(StoppableThread):
                 if attempt > 0:
                     logger.warning(
                         'Failed to start API listener on port %s', port)
-                    port = random.randint(32767, 65535)  # nosec B311
+                    port = random.randint(32767, 65535)
                 se = StoppableRPCServer(
                     (config.get(
                         'bitmessagesettings', 'apiinterface'),
@@ -270,7 +270,7 @@ class singleAPI(StoppableThread):
         if apiNotifyPath:
             logger.info('Trying to call %s', apiNotifyPath)
             try:
-                subprocess.call([apiNotifyPath, "startingUp"])  # nosec B603
+                subprocess.call([apiNotifyPath, "startingUp"])
             except OSError:
                 logger.warning(
                     'Failed to call %s, removing apinotifypath setting',
@@ -287,7 +287,6 @@ class CommandHandler(type):
     methods decorated with @command
     """
     def __new__(mcs, name, bases, namespace):
-        # pylint: disable=protected-access
         result = super(CommandHandler, mcs).__new__(
             mcs, name, bases, namespace)
         result.config = config
@@ -308,7 +307,7 @@ class CommandHandler(type):
         return result
 
 
-class testmode(object):  # pylint: disable=too-few-public-methods
+class testmode(object):
     """Decorator to check testmode & route to command decorator"""
 
     def __init__(self, *aliases):
@@ -322,7 +321,7 @@ class testmode(object):  # pylint: disable=too-few-public-methods
         return command(self.aliases[0]).__call__(func)
 
 
-class command(object):  # pylint: disable=too-few-public-methods
+class command(object):
     """Decorator for API command method"""
     def __init__(self, *aliases):
         self.aliases = aliases
@@ -342,7 +341,6 @@ class command(object):  # pylint: disable=too-few-public-methods
             wrapper.__doc__ = func.__doc__
         else:
             wrapper = func
-        # pylint: disable=protected-access
         wrapper._cmd = self.aliases
         wrapper.__doc__ = """Commands: *%s*
 
@@ -358,7 +356,6 @@ class command(object):  # pylint: disable=too-few-public-methods
 class BMXMLRPCRequestHandler(xmlrpc_server.SimpleXMLRPCRequestHandler):
     """The main API handler"""
 
-    # pylint: disable=protected-access
     def do_POST(self):
         """
         Handles the HTTP POST request.
@@ -394,7 +391,6 @@ class BMXMLRPCRequestHandler(xmlrpc_server.SimpleXMLRPCRequestHandler):
             data = b''.join(L)
 
             # data = self.decode_request_content(data)
-            # pylint: disable=attribute-defined-outside-init
             self.cookies = []
 
             validuser = self.APIAuthenticateClient()
@@ -466,7 +462,6 @@ class BMXMLRPCRequestHandler(xmlrpc_server.SimpleXMLRPCRequestHandler):
         return False
 
 
-# pylint: disable=no-self-use,no-member,too-many-public-methods
 @six.add_metaclass(CommandHandler)
 class BMRPCDispatcher(object):
     """This class is used to dispatch API commands"""
@@ -537,7 +532,7 @@ class BMRPCDispatcher(object):
         }
 
     @staticmethod
-    def _dump_sent_message(  # pylint: disable=too-many-arguments
+    def _dump_sent_message(
             msgid, toAddress, fromAddress, subject, lastactiontime,
             message, encodingtype, status, ackdata):
         subject = shared.fixPotentiallyInvalidUTF8Data(subject)
@@ -1205,7 +1200,6 @@ class BMRPCDispatcher(object):
         the bounds of 3600 to 2419200 will be moved to be within those
         bounds. TTL defaults to 4 days.
         """
-        # pylint: disable=too-many-locals
         if encodingType not in (2, 3):
             raise APIError(6, 'The encoding type must be 2 or 3.')
         subject = self._decode(subject, "base64")
@@ -1612,7 +1606,6 @@ class BMRPCDispatcher(object):
 
     def _handle_request(self, method, params):
         try:
-            # pylint: disable=attribute-defined-outside-init
             self._method = method
             func = self._handlers[method]
             return func(self, *params)
@@ -1658,7 +1651,7 @@ class BMRPCDispatcher(object):
                     'bitmessagesettings', 'apivariant') == 'legacy':
                 return str(_fault)
             else:
-                raise _fault  # pylint: disable=raising-bad-type
+                raise _fault
 
     def _listMethods(self):
         """List all API commands"""

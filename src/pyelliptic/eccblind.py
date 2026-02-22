@@ -74,7 +74,7 @@ class Value(object):
         return value <= self.value
 
 
-class ECCBlind(object):  # pylint: disable=too-many-instance-attributes
+class ECCBlind(object):
     """
     Class for ECC blind signature functionality
     """

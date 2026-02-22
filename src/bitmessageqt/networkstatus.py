@@ -32,7 +32,6 @@ class NetworkStatus(QtGui.QWidget, RetranslateMixin):
         self.startup = time.localtime()
 
         self.UISignalThread = UISignaler.get()
-        # pylint: disable=no-member
         QtCore.QObject.connect(self.UISignalThread, QtCore.SIGNAL(
             "updateNumberOfMessagesProcessed()"), self.updateNumberOfMessagesProcessed)
         QtCore.QObject.connect(self.UISignalThread, QtCore.SIGNAL(
@@ -45,7 +44,6 @@ class NetworkStatus(QtGui.QWidget, RetranslateMixin):
         self.timer = QtCore.QTimer()
 
         QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.runEveryTwoSeconds)
-        # pylint: enable=no-member
 
     def startUpdate(self):
         """Start a timer to update counters every 2 seconds"""
@@ -59,7 +57,6 @@ class NetworkStatus(QtGui.QWidget, RetranslateMixin):
 
     def formatBytes(self, num):
         """Format bytes nicely (SI prefixes)"""
-        # pylint: disable=no-self-use
         for x in [
                 _translate(
                     "networkstatus",
@@ -78,7 +75,6 @@ class NetworkStatus(QtGui.QWidget, RetranslateMixin):
 
     def formatByteRate(self, num):
         """Format transfer speed in kB/s"""
-        # pylint: disable=no-self-use
         num /= 1000
         return "%4.0f kB" % num
 
@@ -145,7 +141,6 @@ class NetworkStatus(QtGui.QWidget, RetranslateMixin):
 
     def updateNetworkStatusTab(self, outbound, add, destination):
         """Add or remove an entry to the list of connected peers"""
-        # pylint: disable=too-many-branches,undefined-variable
         if outbound:
             try:
                 c = connectionpool.pool.outboundConnections[destination]

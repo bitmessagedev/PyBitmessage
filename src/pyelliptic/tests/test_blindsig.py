@@ -10,8 +10,6 @@ try:
 except ImportError:
     from pybitmessage.pyelliptic import ECCBlind, ECCBlindChain, OpenSSL
 
-# pylint: disable=protected-access
-
 
 class TestBlindSig(unittest.TestCase):
     """
@@ -133,7 +131,7 @@ class TestBlindSig(unittest.TestCase):
         verifier_obj = ECCBlind(pubkey=signer_obj.pubkey())
         self.assertFalse(verifier_obj.verify(msg, signature))
 
-    def test_blind_sig_chain(self):  # pylint: disable=too-many-locals
+    def test_blind_sig_chain(self):
         """Test blind signature chain using a random certifier key and a random message"""
 
         test_levels = 4
@@ -167,7 +165,7 @@ class TestBlindSig(unittest.TestCase):
         verifychain = ECCBlindChain(ca=ca.pubkey(), chain=bytes(output))
         self.assertTrue(verifychain.verify(msg=msg, value=1))
 
-    def test_blind_sig_chain_wrong_ca(self):  # pylint: disable=too-many-locals
+    def test_blind_sig_chain_wrong_ca(self):
         """Test blind signature chain with an unlisted ca"""
 
         test_levels = 4
@@ -203,7 +201,7 @@ class TestBlindSig(unittest.TestCase):
         verifychain = ECCBlindChain(ca=ca.pubkey(), chain=bytes(output))
         self.assertFalse(verifychain.verify(msg, 1))
 
-    def test_blind_sig_chain_wrong_msg(self):  # pylint: disable=too-many-locals
+    def test_blind_sig_chain_wrong_msg(self):
         """Test blind signature chain with a fake message"""
 
         test_levels = 4
@@ -238,7 +236,7 @@ class TestBlindSig(unittest.TestCase):
         verifychain = ECCBlindChain(ca=ca.pubkey(), chain=bytes(output))
         self.assertFalse(verifychain.verify(fake_msg, 1))
 
-    def test_blind_sig_chain_wrong_intermediary(self):  # pylint: disable=too-many-locals
+    def test_blind_sig_chain_wrong_intermediary(self):
         """Test blind signature chain using a fake intermediary pubkey"""
 
         test_levels = 4

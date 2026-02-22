@@ -1,12 +1,11 @@
 """
 Proof of work calculation
 """
-# pylint: disable=import-outside-toplevel
 
 import ctypes
 import hashlib
 import os
-import subprocess  # nosec B404
+import subprocess
 import sys
 import tempfile
 import time
@@ -29,7 +28,7 @@ bitmsglib = 'bitmsghash.so'
 bmpow = None
 
 
-class LogOutput(object):  # pylint: disable=too-few-public-methods
+class LogOutput(object):
     """
     A context manager that block stdout for its scope
     and appends it's content to log before exit. Usage::
@@ -79,7 +78,6 @@ def _set_idle():
         os.nice(20)
     else:
         try:
-            # pylint: disable=no-member,import-error
             sys.getwindowsversion()
             import win32api
             import win32process
@@ -90,7 +88,7 @@ def _set_idle():
                 win32api.GetCurrentProcessId())
             win32process.SetPriorityClass(
                 handle, win32process.IDLE_PRIORITY_CLASS)
-        except:  # nosec B110 # noqa:E722 pylint:disable=bare-except
+        except:
             # Windows 64-bit
             pass
 
@@ -126,12 +124,11 @@ def _doSafePoW(target, initialHash):
 
 
 def _doFastPoW(target, initialHash):
-    # pylint:disable=bare-except
     logger.debug('Fast PoW start')
     from multiprocessing import Pool, cpu_count
     try:
         pool_size = cpu_count()
-    except:  # noqa:E722
+    except:
         pool_size = 4
     maxCores = config.safeGetInt('bitmessagesettings', 'maxcores', 99999)
     pool_size = min(pool_size, maxCores)
@@ -147,7 +144,7 @@ def _doFastPoW(target, initialHash):
             try:
                 pool.terminate()
                 pool.join()
-            except:  # nosec B110 # noqa:E722
+            except:
                 pass
             raise StopIteration("Interrupted")
         for i in range(pool_size):
@@ -277,14 +274,14 @@ def buildCPoW():
             # BSD make
             make_cmd += ['-f', 'Makefile.bsd']
 
-        subprocess.check_call(make_cmd)  # nosec B603
+        subprocess.check_call(make_cmd)
         if os.path.exists(
             os.path.join(paths.codePath(), 'bitmsghash', 'bitmsghash.so')
         ):
             init()
     except (OSError, subprocess.CalledProcessError):
         pass
-    except:  # noqa:E722
+    except:
         logger.warning(
             'Unexpected exception rised when tried to build bitmsghash lib',
             exc_info=True)
@@ -343,7 +340,6 @@ def resetPoW():
 
 def init():
     """Initialise PoW"""
-    # pylint: disable=broad-exception-caught,global-statement
     global bitmsglib, bmpow
 
     openclpow.initCL()

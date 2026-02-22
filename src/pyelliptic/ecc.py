@@ -1,7 +1,6 @@
 """
 Asymmetric cryptography using elliptic curves
 """
-# pylint: disable=protected-access, too-many-branches, too-many-locals
 #  Copyright (C) 2011 Yann GUIBET <yannguibet@gmail.com>
 #  See LICENSE for details.
 

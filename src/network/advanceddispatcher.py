@@ -24,7 +24,6 @@ class UnknownStateError(ProcessingError):
 class AdvancedDispatcher(asyncore.dispatcher):
     """Improved version of asyncore dispatcher,
     with buffers and protocol state."""
-    # pylint: disable=too-many-instance-attributes
     _buf_len = 131072  # 128kB
 
     def __init__(self, sock=None):
@@ -150,7 +149,6 @@ class AdvancedDispatcher(asyncore.dispatcher):
         try:
             asyncore.dispatcher.handle_connect_event(self)
         except socket.error as e:
-            # pylint: disable=protected-access
             if e.args[0] not in asyncore._DISCONNECTED:
                 raise
 
@@ -158,7 +156,7 @@ class AdvancedDispatcher(asyncore.dispatcher):
         """Method for handling connection established implementations."""
         self.lastTx = time.time()
 
-    def state_close(self):  # pylint: disable=no-self-use
+    def state_close(self):
         """Signal to the processing loop to end."""
         return False
 

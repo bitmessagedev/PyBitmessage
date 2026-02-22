@@ -18,7 +18,6 @@ enabled = false
 """
 
 
-# pylint: disable=protected-access
 class TestAddressEnableDisable(unittest.TestCase):
     """A test case for bmconfigparser"""
 

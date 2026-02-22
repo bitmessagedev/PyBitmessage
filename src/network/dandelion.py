@@ -22,7 +22,7 @@ Stem = namedtuple('Stem', ['child', 'stream', 'timeout'])
 logger = logging.getLogger('default')
 
 
-class Dandelion:  # pylint: disable=old-style-class
+class Dandelion:
     """Dandelion class for tracking stem/fluff stages."""
     def __init__(self):
         # currently assignable child stems
@@ -150,7 +150,7 @@ class Dandelion:  # pylint: disable=old-style-class
         """
         try:
             # pick a random from available stems
-            stem = choice(range(len(self.stem)))  # nosec B311
+            stem = choice(range(len(self.stem)))
             if self.stem[stem] == parent:
                 # one stem available and it's the parent
                 if len(self.stem) == 1:
@@ -198,7 +198,7 @@ class Dandelion:  # pylint: disable=old-style-class
         with self.lock:
             try:
                 # random two connections
-                self.stem = sample(  # nosec B311
+                self.stem = sample(
                     self.pool.outboundConnections.values(), MAX_STEMS)
             # not enough stems available
             except ValueError:

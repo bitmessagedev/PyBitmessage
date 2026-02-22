@@ -71,7 +71,6 @@ class SMainWindow(QtGui.QMainWindow, SettingsMixin):
 
 class STableWidget(QtGui.QTableWidget, SettingsMixin):
     """Table widget with Settings functionality"""
-    # pylint: disable=too-many-ancestors
     def loadSettings(self):
         """Load table settings."""
         self.readState(self.horizontalHeader())
@@ -94,7 +93,6 @@ class SSplitter(QtGui.QSplitter, SettingsMixin):
 
 class STreeWidget(QtGui.QTreeWidget, SettingsMixin):
     """Tree widget with settings functionality."""
-    # pylint: disable=too-many-ancestors
     def loadSettings(self):
         """Load tree settings."""
         # recurse children

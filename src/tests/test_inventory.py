@@ -56,5 +56,5 @@ class TestStorageAbstract(unittest.TestCase):
             self, TypeError, "^Can't instantiate abstract class.*"
             "methods __contains__, __delitem__, __getitem__, __iter__,"
             " __len__, __setitem__"
-        ):  # pylint: disable=abstract-class-instantiated
+        ):
             storage.InventoryStorage()

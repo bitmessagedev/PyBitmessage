@@ -1,4 +1,3 @@
-# pylint: disable=unused-argument
 """Status bar Module"""
 
 from time import time

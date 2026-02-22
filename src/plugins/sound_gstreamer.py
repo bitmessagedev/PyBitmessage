@@ -4,7 +4,7 @@ Sound notification plugin using gstreamer
 """
 import gi
 gi.require_version('Gst', '1.0')
-from gi.repository import Gst  # noqa: E402
+from gi.repository import Gst
 
 Gst.init(None)
 _player = Gst.ElementFactory.make("playbin", "player")

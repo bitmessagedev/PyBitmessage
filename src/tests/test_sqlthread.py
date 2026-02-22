@@ -12,9 +12,9 @@ skip_python3()
 os.environ['BITMESSAGE_HOME'] = tempfile.gettempdir()
 
 from pybitmessage.helper_sql import (
-    sqlQuery, sql_ready, sqlStoredProcedure)  # noqa:E402
-from pybitmessage.class_sqlThread import sqlThread  # noqa:E402
-from pybitmessage.addresses import encodeAddress  # noqa:E402
+    sqlQuery, sql_ready, sqlStoredProcedure)
+from pybitmessage.class_sqlThread import sqlThread 
+from pybitmessage.addresses import encodeAddress
 
 
 class TestSqlThread(unittest.TestCase):

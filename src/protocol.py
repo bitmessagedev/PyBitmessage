@@ -1,8 +1,6 @@
 """
 Low-level protocol-related functions.
 """
-# pylint: disable=too-many-boolean-expressions,too-many-return-statements
-# pylint: disable=too-many-locals,too-many-statements
 
 import base64
 import hashlib
@@ -71,7 +69,7 @@ OBJECT_I2P = 0x493250
 OBJECT_ADDR = 0x61646472
 
 eightBytesOfRandomDataUsedToDetectConnectionsToSelf = pack(
-    '>Q', random.randrange(1, 18446744073709551615))  # nosec B311
+    '>Q', random.randrange(1, 18446744073709551615))
 
 # Compiled struct for packing/unpacking headers
 # New code should use CreatePacket instead of Header.pack
@@ -502,7 +500,7 @@ def decryptAndCheckPubkeyPayload(data, address):
             return 'failed'
         try:
             decryptedData = cryptorObject.decrypt(encryptedData)
-        except:  # noqa:E722
+        except:
             # FIXME: use a proper exception after `pyelliptic.ecc` is refactored.
             # Someone must have encrypted some data with a different key
             # but tagged it with a tag for which we are watching.

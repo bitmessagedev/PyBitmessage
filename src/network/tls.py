@@ -20,7 +20,7 @@ if sys.version_info >= (2, 7, 13):
     # this means TLSv1 or higher
     # in the future change to
     # ssl.PROTOCOL_TLS1.2
-    sslProtocolVersion = ssl.PROTOCOL_TLS  # pylint: disable=no-member
+    sslProtocolVersion = ssl.PROTOCOL_TLS
 elif sys.version_info >= (2, 7, 9):
     # this means any SSL/TLS.
     # SSLv2 and 3 are excluded with an option after context is created
@@ -43,7 +43,6 @@ else:
 
 class TLSDispatcher(AdvancedDispatcher):
     """TLS functionality for classes derived from AdvancedDispatcher"""
-    # pylint: disable=too-many-instance-attributes,super-init-not-called
     def __init__(self, _=None, sock=None, certfile=None, keyfile=None,
                  server_side=False, ciphers=sslProtocolCiphers):
         self.want_read = self.want_write = True
@@ -190,7 +189,6 @@ class TLSDispatcher(AdvancedDispatcher):
             if not (self.want_write or self.want_read):
                 raise
         except socket.error as err:
-            # pylint: disable=protected-access
             if err.errno in asyncore._DISCONNECTED:
                 self.close_reason = "socket.error in tls_handshake"
                 self.handle_close()

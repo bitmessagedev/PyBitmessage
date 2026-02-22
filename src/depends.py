@@ -18,8 +18,8 @@ if not hasattr(sys, 'hexversion') or sys.hexversion < 0x20300F0:
         % sys.version
     )
 
-import logging  # noqa:E402
-import subprocess  # nosec B404
+import logging
+import subprocess
 from importlib import import_module
 
 # We can now use logging so set up a simple configuration
@@ -192,7 +192,7 @@ def try_import(module, log_extra=False):
 def check_ripemd160():
     """Check availability of the RIPEMD160 hash function"""
     try:
-        from fallback import RIPEMD160Hash  # pylint: disable=relative-import
+        from fallback import RIPEMD160Hash
     except ImportError:
         return False
     return RIPEMD160Hash is not None
@@ -261,8 +261,6 @@ def check_openssl():
     Here we are checking for openssl with its all dependent libraries
     and version checking.
     """
-    # pylint: disable=too-many-branches, too-many-return-statements
-    # pylint: disable=protected-access, redefined-outer-name
     ctypes = try_import('ctypes')
     if not ctypes:
         logger.error('Unable to check OpenSSL.')
@@ -288,7 +286,7 @@ def check_openssl():
             path = ctypes.util.find_library('ssl')
             if path not in paths:
                 paths.append(path)
-        except:  # nosec B110 # pylint:disable=bare-except
+        except:
             pass
 
     openssl_version = None
@@ -415,7 +413,7 @@ def check_dependencies(verbose=False, optional=False):
     for check in check_functions:
         try:
             has_all_dependencies &= check()
-        except:  # noqa:E722
+        except:
             logger.exception('%s failed unexpectedly.', check.__name__)
             has_all_dependencies = False
 

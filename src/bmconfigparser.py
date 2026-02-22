@@ -24,7 +24,6 @@ class BMConfigParser(SafeConfigParser):
     Singleton class inherited from :class:`configparser.SafeConfigParser`
     with additional methods specific to bitmessage config.
     """
-    # pylint: disable=too-many-ancestors
     _temp = {}
 
     def set(self, section, option, value=None):
@@ -88,7 +87,6 @@ class BMConfigParser(SafeConfigParser):
             return default
 
     def items(self, section, raw=False, variables=None):
-        # pylint: disable=signature-differs
         """Return section variables as parent,
         but override the "raw" argument to always True"""
         return SafeConfigParser.items(self, section, True, variables)

@@ -21,7 +21,6 @@ class RandomTrackingDict(object):
     from other peers. If done using a standard dict or array, it takes
     too much CPU (and looks convoluted). Randomisation helps with anonymity.
     """
-    # pylint: disable=too-many-instance-attributes
     maxPending = 10
     pendingTimeout = 60
 
@@ -109,7 +108,6 @@ class RandomTrackingDict(object):
                 and self.lastPoll + self.pendingTimeout > time()):
             raise KeyError
 
-        # pylint: disable=redefined-outer-name
         with self.lock:
             # reset if we've requested all
             # and if last object received too long time ago

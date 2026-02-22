@@ -1,7 +1,6 @@
 """
 Dialogs that work with BM address.
 """
-# pylint: disable=attribute-defined-outside-init,too-few-public-methods,relative-import
 
 import hashlib
 
@@ -21,7 +20,7 @@ class AddressCheckMixin(object):
 
     def __init__(self):
         self.valid = False
-        QtCore.QObject.connect(  # pylint: disable=no-member
+        QtCore.QObject.connect(
             self.lineEditAddress,
             QtCore.SIGNAL("textChanged(QString)"),
             self.addressChanged)

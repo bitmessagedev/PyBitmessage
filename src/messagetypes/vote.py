@@ -10,7 +10,6 @@ class Vote(MsgBase):
 
     def decode(self, data):
         """decode a vote"""
-        # pylint: disable=attribute-defined-outside-init
         self.msgid = data["msgid"]
         self.vote = data["vote"]
 

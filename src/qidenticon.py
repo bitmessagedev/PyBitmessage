@@ -28,7 +28,6 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ###
 
-# pylint: disable=too-many-locals,too-many-arguments,too-many-function-args
 """
 Usage
 -----
@@ -110,7 +109,7 @@ class IdenticonRendererBase(object):
 
     def drawPatchQt(
             self, pos, turn, invert, patch_type, image, size, foreColor,
-            backColor, penwidth):  # pylint: disable=unused-argument
+            backColor, penwidth):
         """
         :param size: patch size
         """

@@ -1,7 +1,6 @@
 """
 Startup operations.
 """
-# pylint: disable=too-many-branches,too-many-statements
 
 import ctypes
 import logging

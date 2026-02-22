@@ -41,7 +41,6 @@ def getSOCKSProxyType(config):
 
 class SettingsDialog(QtGui.QDialog):
     """The "Settings" dialog"""
-    # pylint: disable=too-many-instance-attributes
     def __init__(self, parent=None, firstrun=False):
         super(SettingsDialog, self).__init__(parent)
         widgets.load('settings.ui', self)
@@ -87,7 +86,6 @@ class SettingsDialog(QtGui.QDialog):
 
     def adjust_from_config(self, config):
         """Adjust all widgets state according to config settings"""
-        # pylint: disable=too-many-branches,too-many-statements
 
         current_style = self.app.get_windowstyle()
         for i, sk in enumerate(QtGui.QStyleFactory.keys()):
@@ -302,7 +300,7 @@ class SettingsDialog(QtGui.QDialog):
         assert False
 
     # Namecoin connection type was changed.
-    def namecoinTypeChanged(self, checked):  # pylint: disable=unused-argument
+    def namecoinTypeChanged(self, checked):
         """A callback for toggled event of radioButtonNamecoinNamecoind"""
         nmctype = self.getNamecoinType()
         assert nmctype == "namecoind" or nmctype == "nmcontrol"
@@ -348,7 +346,6 @@ class SettingsDialog(QtGui.QDialog):
 
     def accept(self):
         """A callback for accepted event of buttonBox (OK button pressed)"""
-        # pylint: disable=too-many-branches,too-many-statements
         super(SettingsDialog, self).accept()
         if self.firstrun:
             self.config.remove_option('bitmessagesettings', 'dontconnect')

@@ -1,5 +1,4 @@
 """Composing support request message functions."""
-# pylint: disable=no-member
 
 import ctypes
 import ssl

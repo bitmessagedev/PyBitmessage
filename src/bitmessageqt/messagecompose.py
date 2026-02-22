@@ -1,7 +1,6 @@
 """
 Message editor with a wheel zoom functionality
 """
-# pylint: disable=bad-continuation
 
 from PyQt4 import QtCore, QtGui
 

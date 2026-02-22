@@ -83,7 +83,7 @@ def doCleanShutdown():
     if state.thisapp.daemon or not state.enableGUI:
         logger.info('Clean shutdown complete.')
         state.thisapp.cleanup()
-        os._exit(0)  # pylint: disable=protected-access
+        os._exit(0)
     else:
         logger.info('Core shutdown complete.')
     for thread in threading.enumerate():

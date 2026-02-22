@@ -9,7 +9,6 @@ needed openssl functionality in class _OpenSSL.
 import ctypes
 import sys
 
-# pylint: disable=protected-access
 
 OpenSSL = None
 
@@ -72,7 +71,7 @@ def get_version(library):
     return (version, hexversion, cflags)
 
 
-class BIGNUM(ctypes.Structure):  # pylint: disable=too-few-public-methods
+class BIGNUM(ctypes.Structure):
     """OpenSSL's BIGNUM struct"""
     _fields_ = [
         ('d', ctypes.POINTER(ctypes.c_ulong)),
@@ -83,7 +82,7 @@ class BIGNUM(ctypes.Structure):  # pylint: disable=too-few-public-methods
     ]
 
 
-class EC_POINT(ctypes.Structure):  # pylint: disable=too-few-public-methods
+class EC_POINT(ctypes.Structure):
     """OpenSSL's EC_POINT struct"""
     _fields_ = [
         ('meth', ctypes.c_void_p),
@@ -99,7 +98,6 @@ class _OpenSSL(object):
     """
     Wrapper for OpenSSL using ctypes
     """
-    # pylint: disable=too-many-statements, too-many-instance-attributes
     def __init__(self, library):
         """
         Build the wrapper
@@ -755,7 +753,6 @@ class _OpenSSL(object):
 
 def loadOpenSSL():
     """This function finds and load the OpenSSL library"""
-    # pylint: disable=global-statement
     global OpenSSL
     from os import path, environ
     from ctypes.util import find_library
@@ -819,7 +816,7 @@ def loadOpenSSL():
         try:
             OpenSSL = _OpenSSL(library)
             return
-        except Exception:  # nosec B110
+        except Exception:
             pass
     raise Exception(
         "Couldn't find and load the OpenSSL library. You must install it.")

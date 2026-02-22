@@ -35,7 +35,6 @@ maxnodes = 15000
 maxsize = 1048576"""
 
 
-# pylint: disable=protected-access
 class TestConfig(unittest.TestCase):
     """A test case for bmconfigparser"""
 
@@ -55,7 +54,6 @@ class TestConfig(unittest.TestCase):
         self.assertIs(
             self.config.safeGetBoolean('nonexistent', 'nonexistent'), False)
         # no arg for default
-        # pylint: disable=too-many-function-args
         with self.assertRaises(TypeError):
             self.config.safeGetBoolean('nonexistent', 'nonexistent', True)
 

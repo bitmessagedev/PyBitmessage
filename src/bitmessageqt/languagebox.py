@@ -1,5 +1,4 @@
 """Language Box Module for Locale Settings"""
-# pylint: disable=too-few-public-methods,bad-continuation
 import glob
 import os
 

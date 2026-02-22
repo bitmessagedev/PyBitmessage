@@ -35,7 +35,6 @@ class MsgDecodeException(Exception):
 
 
 class DecompressionSizeException(MsgDecodeException):
-    # pylint: disable=super-init-not-called
     """Decompression resulted in too much data (attack protection)"""
     def __init__(self, size):
         self.size = size
@@ -134,7 +133,7 @@ class MsgDecode(object):
             raise MsgDecodeException("Malformed message")
         try:
             msgObj.process()
-        except:  # noqa:E722
+        except:
             raise MsgDecodeException("Malformed message")
         if msgType == "message":
             self.subject = msgObj.subject

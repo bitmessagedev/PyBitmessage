@@ -2,12 +2,11 @@
 Manipulations with knownNodes dictionary.
 """
 # TODO: knownnodes object maybe?
-# pylint: disable=global-statement
 
 import json
 import logging
 import os
-import pickle  # nosec B403
+import pickle
 import threading
 import time
 try:
@@ -85,7 +84,7 @@ def pickle_deserialize_old_knownnodes(source):
     the new format is {Peer:{"lastseen":i, "rating":f}}
     """
     global knownNodes
-    knownNodes = pickle.load(source)  # nosec B301
+    knownNodes = pickle.load(source)
     for stream in knownNodes.keys():
         for node, params in knownNodes[stream].iteritems():
             if isinstance(params, (float, int)):
@@ -107,7 +106,6 @@ def addKnownNode(stream, peer, lastseen=None, is_self=False):
     Do it for each stream number if *stream* is `Iterable`.
     Returns True if added a new node.
     """
-    # pylint: disable=too-many-branches
     if isinstance(stream, Iterable):
         with knownNodesLock:
             for s in stream:

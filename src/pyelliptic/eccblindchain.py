@@ -5,7 +5,7 @@ Blind signature chain with a top level CA
 from .eccblind import ECCBlind
 
 
-class ECCBlindChain(object):  # pylint: disable=too-few-public-methods
+class ECCBlindChain(object):
     """
     # Class for ECC Blind Chain signature functionality
     """

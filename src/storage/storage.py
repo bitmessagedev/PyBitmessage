@@ -5,7 +5,7 @@ Storing inventory items
 from abc import abstractmethod
 from collections import namedtuple
 try:
-    from collections import MutableMapping  # pylint: disable=deprecated-class
+    from collections import MutableMapping
 except ImportError:
     from collections.abc import MutableMapping
 

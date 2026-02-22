@@ -12,7 +12,7 @@ class HttpError(ProxyError):
 
 
 class HttpConnection(AdvancedDispatcher):
-    def __init__(self, host, path="/"):     # pylint: disable=redefined-outer-name
+    def __init__(self, host, path="/"):
         AdvancedDispatcher.__init__(self)
         self.path = path
         self.destination = (host, 80)
@@ -38,7 +38,7 @@ class HttpConnection(AdvancedDispatcher):
 
 
 class Socks5HttpConnection(Socks5Connection, HttpConnection):
-    def __init__(self, host, path="/"):     # pylint: disable=super-init-not-called, redefined-outer-name
+    def __init__(self, host, path="/"):
         self.path = path
         Socks5Connection.__init__(self, address=(host, 80))
 
@@ -48,7 +48,7 @@ class Socks5HttpConnection(Socks5Connection, HttpConnection):
 
 
 class Socks4aHttpConnection(Socks4aConnection, HttpConnection):
-    def __init__(self, host, path="/"):     # pylint: disable=super-init-not-called, redefined-outer-name
+    def __init__(self, host, path="/"):
         Socks4aConnection.__init__(self, address=(host, 80))
         self.path = path
 

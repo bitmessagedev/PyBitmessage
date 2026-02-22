@@ -1,4 +1,3 @@
-# pylint: disable=too-many-instance-attributes,attribute-defined-outside-init
 """
 account.py
 ==========
@@ -86,7 +85,7 @@ def accountClass(address):
     return BMAccount(address)
 
 
-class AccountColor(AccountMixin):  # pylint: disable=too-few-public-methods
+class AccountColor(AccountMixin):
     """Set the type of account"""
 
     def __init__(self, address, address_type=None):
@@ -162,7 +161,7 @@ class BMAccount(object):
 class NoAccount(BMAccount):
     """Override the __init__ method on a BMAccount"""
 
-    def __init__(self, address=None):  # pylint: disable=super-init-not-called
+    def __init__(self, address=None):
         self.address = address
         self.type = AccountMixin.NORMAL
 
@@ -195,7 +194,6 @@ class GatewayAccount(BMAccount):
     def send(self):
         """Override the send method for gateway accounts"""
 
-        # pylint: disable=unused-variable
         status, addressVersionNumber, streamNumber, ripe = decodeAddress(self.toAddress)
         stealthLevel = config.safeGetInt('bitmessagesettings', 'ackstealthlevel')
         ackdata = genAckPayload(streamNumber, stealthLevel)

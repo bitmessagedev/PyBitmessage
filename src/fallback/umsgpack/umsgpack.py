@@ -46,8 +46,6 @@ types.
 
 License: MIT
 """
-# pylint: disable=too-many-lines,too-many-branches,too-many-statements,global-statement,too-many-return-statements
-# pylint: disable=unused-argument
 
 import collections
 import io
@@ -66,7 +64,7 @@ version = (2, 4, 1)
 ##############################################################################
 
 # Extension type for application-defined types and data
-class Ext:  # pylint: disable=old-style-class
+class Ext:
     """
     The Ext class facilitates creating a serializable extension object to store
     an application-defined type and data byte array.
@@ -93,7 +91,6 @@ class Ext:  # pylint: disable=old-style-class
         Ext Object (Type: 0x05, Data: 01 02 03)
         >>>
         """
-        # pylint:disable=redefined-builtin
 
         # Application ext type should be 0 <= type <= 127
         if not isinstance(type, int) or not (type >= 0 and type <= 127):
@@ -965,7 +962,6 @@ def _unpackb3(s, **options):
 
 
 def __init():
-    # pylint: disable=global-variable-undefined
 
     global pack
     global packb
@@ -999,7 +995,7 @@ def __init():
         unpackb = _unpackb3
         load = _unpack3
         loads = _unpackb3
-        xrange = range  # pylint: disable=redefined-builtin
+        xrange = range
     else:
         pack = _pack2
         packb = _packb2

@@ -12,11 +12,10 @@ from pybitmessage.tr import _translate
 
 
 # http://stackoverflow.com/questions/20452486
-class Image(qrcode.image.base.BaseImage):  # pylint: disable=abstract-method
+class Image(qrcode.image.base.BaseImage):
     """Image output class for qrcode using QPainter"""
 
     def __init__(self, border, width, box_size):
-        # pylint: disable=super-init-not-called
         self.border = border
         self.width = width
         self.box_size = box_size
@@ -85,7 +84,7 @@ def connect_plugin(form):
             form.qrcode_dialog = dialog = QRCodeDialog(form)
         account = form.getContactSelected()
         try:
-            label = account._getLabel()  # pylint: disable=protected-access
+            label = account._getLabel()
         except AttributeError:
             try:
                 label = account.getLabel()

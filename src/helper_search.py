@@ -28,7 +28,6 @@ def search_sql(
     :return: all messages where <where> field contains <what>
     :rtype: list[list]
     """
-    # pylint: disable=too-many-branches
     if what:
         what = '%' + what + '%'
         if where == _translate("MainWindow", "To"):

@@ -671,7 +671,6 @@ class Ui_MainWindow(object):
         MainWindow.setTabOrder(self.textEditMessage, self.pushButtonAddSubscription)
 
         # Popup menu actions container for the Sent page
-        # pylint: disable=attribute-defined-outside-init
         self.sentContextMenuToolbar = QtGui.QToolBar()
         # Popup menu actions container for chans tree
         self.addressContextMenuToolbar = QtGui.QToolBar()

@@ -4,7 +4,7 @@ Common reusable code for tests and tests for pybitmessage process.
 
 import os
 import signal
-import subprocess  # nosec
+import subprocess
 import sys
 import tempfile
 import time
@@ -60,7 +60,7 @@ class TestProcessProto(unittest.TestCase):
         put_signal_file(cls.home, 'unittest.lock')
         starttime = int(time.time()) - 0.5
         cls.process = psutil.Popen(
-            cls._process_cmd, stderr=subprocess.STDOUT)  # nosec
+            cls._process_cmd, stderr=subprocess.STDOUT)
 
         pidfile = os.path.join(cls.home, 'singleton.lock')
         for _ in range(10):
@@ -137,7 +137,6 @@ class TestProcessProto(unittest.TestCase):
     def _test_threads(self):
         """Test number and names of threads"""
 
-        # pylint: disable=invalid-name
         self.longMessage = True
 
         try:
@@ -149,7 +148,7 @@ class TestProcessProto(unittest.TestCase):
             ]).split()
         except subprocess.CalledProcessError:
             thread_names = []
-        except:  # noqa:E722
+        except:
             thread_names = []
 
         running_threads = len(thread_names)

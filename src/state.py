@@ -63,7 +63,7 @@ thisapp = None
 backend_py3_compatible = False
 
 
-class Placeholder(object):  # pylint:disable=too-few-public-methods
+class Placeholder(object):
     """Placeholder class"""
 
     def __init__(self, className):

@@ -1,5 +1,4 @@
 """Tests for AddressGenerator (with thread or not)"""
-# pylint: disable=import-error,no-member,import-outside-toplevel
 import sys
 import time
 import unittest
@@ -56,7 +55,7 @@ class TestAddressGenerator(TestPartialRun):
         sys.hexversion < 0x3000000, 'assertLogs is new in version 3.4')
     def test_invalid_command(self):
         """Test handling invalid commands"""
-        with self.assertLogs('default') as cm:  # pylint: disable=no-member
+        with self.assertLogs('default') as cm:
             self.command_queue.put(('wrong', 'command'))
             self.command_queue.put((
                 'createRandomAddress', 2, 1, 'old_addr', 1, '', False, 0, 0))

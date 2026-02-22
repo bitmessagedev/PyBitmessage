@@ -1,5 +1,4 @@
-﻿# pylint: disable=too-many-statements,too-many-branches,protected-access,no-self-use
-"""
+﻿"""
 Complete UPnP port forwarding implementation in separate thread.
 Reference: http://mattscodecave.com/posts/using-python-and-upnp-to-forward-a-port.html
 """
@@ -8,7 +7,7 @@ import re
 import socket
 import time
 from random import randint
-from xml.dom.minidom import Document  # nosec B408
+from xml.dom.minidom import Document
 
 from defusedxml.minidom import parseString
 from six.moves import http_client as httplib
@@ -82,7 +81,7 @@ class UPnPError(Exception):
         logger.error(message)
 
 
-class Router:  # pylint: disable=old-style-class
+class Router:
     """Encapulate routing"""
     name = ""
     path = ""
@@ -112,7 +111,7 @@ class Router:  # pylint: disable=old-style-class
         parsed_url = urlparse(header['location'])
         if parsed_url.scheme not in ['http', 'https']:
             raise UPnPError("Unsupported URL scheme: %s" % parsed_url.scheme)
-        directory = urlopen(header['location']).read()  # nosec B310
+        directory = urlopen(header['location']).read()
 
         # create a DOM object that represents the `directory` document
         dom = parseString(directory)
@@ -197,7 +196,7 @@ class Router:  # pylint: disable=old-style-class
                 if errinfo:
                     logger.error("UPnP error: %s", respData)
                     raise UPnPError(errinfo[0].childNodes[0].data)
-            except:  # noqa:E722
+            except:
                 raise UPnPError("Unable to parse SOAP error: %s" % (respData))
         return resp
 
@@ -238,14 +237,13 @@ class uPnPThread(StoppableThread):
             if not bound:
                 time.sleep(1)
 
-        # pylint: disable=attribute-defined-outside-init
         self.localPort = config.getint('bitmessagesettings', 'port')
 
         while state.shutdown == 0 and config.safeGetBoolean('bitmessagesettings', 'upnp'):
             if time.time() - lastSent > self.sendSleep and not self.routers:
                 try:
                     self.sendSearchRouter()
-                except:  # nosec B110 # noqa:E722 # pylint:disable=bare-except
+                except:
                     pass
                 lastSent = time.time()
             try:
@@ -266,7 +264,7 @@ class uPnPThread(StoppableThread):
                                 newRouter.GetExternalIPAddress(),
                                 self.extPort
                             )
-                        except:  # noqa:E722
+                        except:
                             logger.debug('Failed to get external IP')
                         else:
                             with knownnodes.knownNodesLock:
@@ -278,18 +276,18 @@ class uPnPThread(StoppableThread):
                         break
             except socket.timeout:
                 pass
-            except:  # noqa:E722
+            except:
                 logger.error("Failure running UPnP router search.", exc_info=True)
             for router in self.routers:
                 if router.extPort is None:
                     self.createPortMapping(router)
         try:
             self.sock.shutdown(socket.SHUT_RDWR)
-        except (IOError, OSError):  # noqa:E722
+        except (IOError, OSError):
             pass
         try:
             self.sock.close()
-        except (IOError, OSError):  # noqa:E722
+        except (IOError, OSError):
             pass
         deleted = False
         for router in self.routers:
@@ -320,7 +318,7 @@ class uPnPThread(StoppableThread):
         try:
             logger.debug("Sending UPnP query")
             self.sock.sendto(ssdpRequest, (uPnPThread.SSDP_ADDR, uPnPThread.SSDP_PORT))
-        except:  # noqa:E722
+        except:
             logger.exception("UPnP send query failed")
 
     def createPortMapping(self, router):
@@ -334,7 +332,7 @@ class uPnPThread(StoppableThread):
                 elif i == 1 and self.extPort:
                     extPort = self.extPort  # try external port from last time next
                 else:
-                    extPort = randint(32767, 65535)  # nosec B311
+                    extPort = randint(32767, 65535)
                 logger.debug(
                     "Attempt %i, requesting UPnP mapping for %s:%i on external port %i",
                     i,

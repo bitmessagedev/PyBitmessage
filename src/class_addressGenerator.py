@@ -6,7 +6,6 @@ import time
 from binascii import hexlify
 
 from six.moves import configparser, queue
-# pylint: disable=import-error
 import defaults
 import highlevelcrypto
 import queues
@@ -33,7 +32,6 @@ class addressGenerator(StoppableThread):
         super(addressGenerator, self).stopThread()
 
     def save_address(
-        # pylint: disable=too-many-arguments,too-many-positional-arguments
         self, version, stream, ripe, label, signing_key, encryption_key,
         nonceTrialsPerByte, payloadLengthExtraBytes
     ):
@@ -90,8 +88,6 @@ class addressGenerator(StoppableThread):
         Process the requests for addresses generation
         from `.queues.addressGeneratorQueue`
         """
-        # pylint: disable=too-many-locals,too-many-branches,too-many-statements
-        # pylint: disable=too-many-nested-blocks
 
         while state.shutdown == 0:
             queueValue = queues.addressGeneratorQueue.get()

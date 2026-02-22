@@ -1,7 +1,6 @@
 """
 TCP protocol handler
 """
-# pylint: disable=too-many-ancestors
 
 import logging
 import math
@@ -40,7 +39,6 @@ maximumTimeOffsetWrongCount = 3  #: Connections with wrong time offset
 
 
 class TCPConnection(BMProto, TLSDispatcher):
-    # pylint: disable=too-many-instance-attributes
     """
     .. todo:: Look to understand and/or fix the non-parent-init-called
     """
@@ -89,7 +87,7 @@ class TCPConnection(BMProto, TLSDispatcher):
             # it's probably a hostname
             pass
         self.network_group = protocol.network_group(self.destination.host)
-        ObjectTracker.__init__(self)  # pylint: disable=non-parent-init-called
+        ObjectTracker.__init__(self)
         self.bm_proto_reset()
         self.set_state("bm_header", expectBytes=protocol.Header.size)
 
@@ -201,7 +199,7 @@ class TCPConnection(BMProto, TLSDispatcher):
                         len(filtered),
                         maxAddrCount / 2 if n else maxAddrCount)
                     addrs[s] = random.sample(filtered,
-                                             elemCount)  # nosec B311
+                                             elemCount)
         for substream in addrs:
             for peer, params in addrs[substream]:
                 templist.append((substream, peer, params["lastseen"]))
@@ -258,7 +256,6 @@ class TCPConnection(BMProto, TLSDispatcher):
         try:
             AdvancedDispatcher.handle_connect(self)
         except socket.error as e:
-            # pylint: disable=protected-access
             if e.errno in asyncore._DISCONNECTED:
                 logger.debug(
                     '%s:%i: Connection failed: %s',
@@ -371,7 +368,6 @@ def bootstrap(connection_class):
 
         def set_connection_fully_established(self):
             """Only send addr here"""
-            # pylint: disable=attribute-defined-outside-init
             self.fullyEstablished = True
             self.sendAddr()
 
@@ -399,7 +395,7 @@ class TCPServer(AdvancedDispatcher):
             try:
                 if attempt > 0:
                     logger.warning('Failed to bind on port %s', port)
-                    port = random.randint(32767, 65535)  # nosec B311
+                    port = random.randint(32767, 65535)
                 self.bind((host, port))
             except socket.error as e:
                 if e.errno in (asyncore.EADDRINUSE, asyncore.WSAEADDRINUSE):

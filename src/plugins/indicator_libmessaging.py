@@ -4,7 +4,7 @@ Indicator plugin using libmessaging
 """
 
 import gi
-gi.require_version('MessagingMenu', '1.0')  # noqa:E402
+gi.require_version('MessagingMenu', '1.0')
 from gi.repository import MessagingMenu
 
 from pybitmessage.bitmessageqt.utils import str_broadcast_subscribers
@@ -18,7 +18,7 @@ class IndicatorLibmessaging(object):
             self.app = MessagingMenu.App(desktop_id='pybitmessage.desktop')
             self.app.register()
             self.app.connect('activate-source', self.activate)
-        except:  # noqa:E722
+        except:
             self.app = None
             return
 
@@ -36,7 +36,7 @@ class IndicatorLibmessaging(object):
         if self.app:
             self.app.unregister()
 
-    def activate(self, app, source):  # pylint: disable=unused-argument
+    def activate(self, app, source):
         """Activate the libmessaging indicator plugin"""
         self.form.appIndicatorInbox(
             self.new_message_item if source == 'messages'

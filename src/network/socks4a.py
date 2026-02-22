@@ -1,7 +1,6 @@
 """
 SOCKS4a proxy module
 """
-# pylint: disable=attribute-defined-outside-init
 import logging
 import socket
 import struct

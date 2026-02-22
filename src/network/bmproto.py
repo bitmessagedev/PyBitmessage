@@ -51,11 +51,9 @@ class BMProtoExcessiveDataError(BMProtoError):
 
 class BMProto(AdvancedDispatcher, ObjectTracker):
     """A parser for the Bitmessage Protocol"""
-    # pylint: disable=too-many-instance-attributes, too-many-public-methods
     timeOffsetWrongCount = 0
 
     def __init__(self, address=None, sock=None):
-        # pylint: disable=unused-argument, super-init-not-called
         AdvancedDispatcher.__init__(self, sock)
         self.isOutbound = False
         # packet/connection from a local IP
@@ -102,7 +100,7 @@ class BMProto(AdvancedDispatcher, ObjectTracker):
             length=protocol.Header.size, expectBytes=self.payloadLength)
         return True
 
-    def state_bm_command(self):   # pylint: disable=too-many-branches
+    def state_bm_command(self):
         """Process incoming command"""
         self.payload = self.read_buf[:self.payloadLength]
         if self.checksum != hashlib.sha512(self.payload).digest()[0:4]:
@@ -185,7 +183,6 @@ class BMProto(AdvancedDispatcher, ObjectTracker):
 
         return Node(services, host, port)
 
-    # pylint: disable=too-many-branches,too-many-statements
     def decode_payload_content(self, pattern="v"):
         """
         Decode the payload depending on pattern:
@@ -413,7 +410,7 @@ class BMProto(AdvancedDispatcher, ObjectTracker):
         try:
             self.object.checkObjectByType()
             objectProcessorQueue.put((
-                self.object.objectType, buffer(self.object.data)))  # noqa: F821
+                self.object.objectType, buffer(self.object.data)))
         except BMObjectInvalidError:
             BMProto.stopDownloadingObject(self.object.inventoryHash, True)
         else:
@@ -429,8 +426,8 @@ class BMProto(AdvancedDispatcher, ObjectTracker):
 
         state.Inventory[self.object.inventoryHash] = (
             self.object.objectType, self.object.streamNumber,
-            buffer(self.payload[objectOffset:]), self.object.expiresTime,  # noqa: F821
-            buffer(self.object.tag)  # noqa: F821
+            buffer(self.payload[objectOffset:]), self.object.expiresTime,
+            buffer(self.object.tag)
         )
         self.handleReceivedObject(
             self.object.streamNumber, self.object.inventoryHash)
@@ -562,7 +559,6 @@ class BMProto(AdvancedDispatcher, ObjectTracker):
             length=self.payloadLength, expectBytes=0)
         return False
 
-    # pylint: disable=too-many-return-statements
     def peerValidityChecks(self):
         """Check the validity of the peer"""
         if self.remoteProtocolVersion < 3:
@@ -614,7 +610,7 @@ class BMProto(AdvancedDispatcher, ObjectTracker):
                         'Closed connection to %s because we are already'
                         ' connected to that IP.', self.destination)
                     return False
-            except Exception:  # nosec B110 # pylint:disable=broad-exception-caught
+            except Exception:
                 pass
         if not self.isOutbound:
             # incoming from a peer we're connected to as outbound,

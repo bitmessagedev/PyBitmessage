@@ -1,8 +1,6 @@
 """
 Folder tree and messagelist widgets definitions.
 """
-# pylint: disable=too-many-arguments,bad-super-call
-# pylint: disable=attribute-defined-outside-init
 
 from cgi import escape
 
@@ -282,7 +280,6 @@ class Ui_AddressWidget(BMTreeWidgetItem, SettingsMixin):
 
     # label (or address) alphabetically, disabled at the end
     def __lt__(self, other):
-        # pylint: disable=protected-access
         if isinstance(other, Ui_AddressWidget):
             reverse = QtCore.Qt.DescendingOrder == \
                 self.treeWidget().header().sortIndicatorOrder()
@@ -300,7 +297,6 @@ class Ui_AddressWidget(BMTreeWidgetItem, SettingsMixin):
 
 class Ui_SubscriptionWidget(Ui_AddressWidget):
     """Special treating of subscription addresses"""
-    # pylint: disable=unused-argument
     def __init__(self, parent, pos=0, address="", unreadCount=0, label="", enabled=True):
         super(Ui_SubscriptionWidget, self).__init__(
             parent, pos, address, unreadCount, enabled)
@@ -499,7 +495,6 @@ class MessageList_TimeWidget(BMTableWidgetItem):
 
 class Ui_AddressBookWidgetItem(BMAddressWidget):
     """Addressbook item"""
-    # pylint: disable=unused-argument
     def __init__(self, label=None, acc_type=AccountMixin.NORMAL):
         self.type = acc_type
         super(Ui_AddressBookWidgetItem, self).__init__(label=label)
@@ -577,7 +572,7 @@ class AddressBookCompleter(QtGui.QCompleter):
         super(AddressBookCompleter, self).__init__()
         self.cursorPos = -1
 
-    def onCursorPositionChanged(self, oldPos, newPos):  # pylint: disable=unused-argument
+    def onCursorPositionChanged(self, oldPos, newPos):
         """Callback for cursor position change"""
         if oldPos != self.cursorPos:
             self.cursorPos = -1

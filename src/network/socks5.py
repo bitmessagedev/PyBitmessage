@@ -1,7 +1,6 @@
 """
 SOCKS5 proxy module
 """
-# pylint: disable=attribute-defined-outside-init
 
 import logging
 import socket

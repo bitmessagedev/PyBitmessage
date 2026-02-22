@@ -71,7 +71,7 @@ class HTTPSRequestHandler(HTTPRequestHandler, TLSHandshake):
     """Handling HTTPS request"""
     def __init__(self, sock):
         if not hasattr(self, '_map'):
-            asyncore.dispatcher.__init__(self, sock)        # pylint: disable=non-parent-init-called
+            asyncore.dispatcher.__init__(self, sock)
         # self.tlsDone = False
         TLSHandshake.__init__(
             self,

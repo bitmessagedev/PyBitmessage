@@ -7,7 +7,6 @@ Symmetric Encryption
 from .openssl import OpenSSL
 
 
-# pylint: disable=redefined-builtin
 class Cipher(object):
     """
     Main class for encryption
@@ -63,7 +62,7 @@ class Cipher(object):
         if OpenSSL.EVP_CipherUpdate(self.ctx, OpenSSL.byref(buffer),
                                     OpenSSL.byref(i), inp, len(input)) == 0:
             raise Exception("[OpenSSL] EVP_CipherUpdate FAIL ...")
-        return buffer.raw[0:i.value]  # pylint: disable=invalid-slice-index
+        return buffer.raw[0:i.value]
 
     def final(self):
         """Returning the final value"""
@@ -72,7 +71,7 @@ class Cipher(object):
         if (OpenSSL.EVP_CipherFinal_ex(self.ctx, OpenSSL.byref(buffer),
                                        OpenSSL.byref(i))) == 0:
             raise Exception("[OpenSSL] EVP_CipherFinal_ex FAIL ...")
-        return buffer.raw[0:i.value]  # pylint: disable=invalid-slice-index
+        return buffer.raw[0:i.value]
 
     def ciphering(self, input):
         """
@@ -82,7 +81,6 @@ class Cipher(object):
         return buff + self.final()
 
     def __del__(self):
-        # pylint: disable=protected-access
         if OpenSSL._hexversion > 0x10100000 and not OpenSSL._libreSSL:
             OpenSSL.EVP_CIPHER_CTX_reset(self.ctx)
         else:

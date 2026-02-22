@@ -5,9 +5,9 @@ Tests for core and those that do not work outside
 
 import atexit
 import os
-import pickle  # nosec
+import pickle
 import Queue
-import random  # nosec
+import random
 import shutil
 import socket
 import string
@@ -75,10 +75,10 @@ class TestCore(unittest.TestCase):
         """test encoding and decoding (originally from helper_msgcoding)"""
         msg_data = {
             'subject': ''.join(
-                random.choice(string.ascii_lowercase + string.digits)  # nosec
+                random.choice(string.ascii_lowercase + string.digits)
                 for _ in range(40)),
             'body': ''.join(
-                random.choice(string.ascii_lowercase + string.digits)  # nosec
+                random.choice(string.ascii_lowercase + string.digits)
                 for _ in range(10000))
         }
 
@@ -118,7 +118,7 @@ class TestCore(unittest.TestCase):
                 while asyncore.socket_map:
                     print("loop, state = %s" % direct.state)
                     asyncore.loop(timeout=10, count=1)
-        except:  # noqa:E722
+        except:
             self.fail('Exception in test loop')
 
     def _load_knownnodes(self, filepath):
@@ -425,7 +425,7 @@ def run():
         qt_tests = loader.loadTestsFromModule(bitmessageqt.tests)
         suite.addTests(qt_tests)
 
-    def keep_exc(ex_cls, exc, tb):  # pylint: disable=unused-argument
+    def keep_exc(ex_cls, exc, tb):
         """Own exception hook for test cases"""
         excQueue.put(('tests', exc))
 

@@ -53,7 +53,7 @@ import shutdown
 from statusbar import BMStatusBar
 import sound
 # This is needed for tray icon
-import bitmessage_icons_rc  # noqa:F401 pylint: disable=unused-import
+import bitmessage_icons_rc
 import helper_sent
 
 from six.moves import iteritems, itervalues, range as xrange
@@ -92,7 +92,7 @@ def openKeysFile():
     if 'linux' in sys.platform:
         subprocess.call(["xdg-open", keysfile])
     elif is_windows:
-        os.startfile(keysfile)  # pylint: disable=no-member
+        os.startfile(keysfile)
 
 
 class MyForm(settingsmixin.SMainWindow):
@@ -2495,7 +2495,6 @@ class MyForm(settingsmixin.SMainWindow):
             tableWidget = self.widgetConvert(treeWidget)
             current_account = self.getCurrentAccount(treeWidget)
             current_folder = self.getCurrentFolder(treeWidget)
-            # pylint: disable=too-many-boolean-expressions
             if ((tableWidget == inbox
                  and current_account == acct.address
                  and current_folder in ("inbox", None))
@@ -3034,7 +3033,6 @@ class MyForm(settingsmixin.SMainWindow):
 
     def on_action_InboxReply(self, reply_type=None):
         """Handle any reply action depending on reply_type"""
-        # pylint: disable=too-many-locals
         tableWidget = self.getCurrentMessagelist()
         if not tableWidget:
             return
@@ -4004,7 +4002,6 @@ class MyForm(settingsmixin.SMainWindow):
             _translate("MainWindow", "Copy address to clipboard"),
             self.on_action_ClipboardMessagelist)
         self.popMenuInbox.addAction(self.actionClipboardMessagelist)
-        # pylint: disable=no-member
         self._contact_selected = tableWidget.item(currentRow, 1)
         # preloaded gui.menu plugins with prefix 'address'
         for plugin in self.menu_plugins['address']:

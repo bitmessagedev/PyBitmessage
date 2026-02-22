@@ -1,8 +1,6 @@
 """
 Thread for performing PoW
 """
-# pylint: disable=protected-access,too-many-branches,too-many-statements
-# pylint: disable=no-self-use,too-many-lines,too-many-locals
 
 from __future__ import division
 
@@ -10,7 +8,7 @@ import hashlib
 import time
 from binascii import hexlify, unhexlify
 from struct import pack
-from subprocess import call  # nosec
+from subprocess import call
 
 from six.moves import configparser, queue
 from six.moves.reprlib import repr
@@ -63,7 +61,6 @@ class singleWorker(StoppableThread):
         super(singleWorker, self).stopThread()
 
     def run(self):
-        # pylint: disable=attribute-defined-outside-init
 
         while not helper_sql.sql_ready.wait(1.0) and state.shutdown == 0:
             self.stop.wait(1.0)
@@ -148,37 +145,37 @@ class singleWorker(StoppableThread):
             if command == 'sendmessage':
                 try:
                     self.sendMsg()
-                except:  # noqa:E722
+                except:
                     self.logger.warning("sendMsg didn't work")
             elif command == 'sendbroadcast':
                 try:
                     self.sendBroadcast()
-                except:  # noqa:E722
+                except:
                     self.logger.warning("sendBroadcast didn't work")
             elif command == 'doPOWForMyV2Pubkey':
                 try:
                     self.doPOWForMyV2Pubkey(data)
-                except:  # noqa:E722
+                except:
                     self.logger.warning("doPOWForMyV2Pubkey didn't work")
             elif command == 'sendOutOrStoreMyV3Pubkey':
                 try:
                     self.sendOutOrStoreMyV3Pubkey(data)
-                except:  # noqa:E722
+                except:
                     self.logger.warning("sendOutOrStoreMyV3Pubkey didn't work")
             elif command == 'sendOutOrStoreMyV4Pubkey':
                 try:
                     self.sendOutOrStoreMyV4Pubkey(data)
-                except:  # noqa:E722
+                except:
                     self.logger.warning("sendOutOrStoreMyV4Pubkey didn't work")
             elif command == 'sendOnionPeerObj':
                 try:
                     self.sendOnionPeerObj(data)
-                except:  # noqa:E722
+                except:
                     self.logger.warning("sendOnionPeerObj didn't work")
             elif command == 'resetPoW':
                 try:
                     proofofwork.resetPoW()
-                except:  # noqa:E722
+                except:
                     self.logger.warning("proofofwork.resetPoW didn't work")
             elif command == 'stopThread':
                 self.busy = 0
@@ -274,7 +271,7 @@ class singleWorker(StoppableThread):
                 myAddress)[2:]
         except ValueError:
             return
-        except Exception:  # pylint:disable=broad-exception-caught
+        except Exception:
             self.logger.error(
                 'Error within doPOWForMyV2Pubkey. Could not read'
                 ' the keys from the keys.dat file for a requested'
@@ -305,7 +302,7 @@ class singleWorker(StoppableThread):
             # The user deleted the address out of the keys.dat file
             # before this finished.
             pass
-        except:  # noqa:E722
+        except:
             self.logger.warning("config.set didn't work")
 
     def sendOutOrStoreMyV3Pubkey(self, adressHash):
@@ -352,7 +349,7 @@ class singleWorker(StoppableThread):
                 self._getKeysForAddress(myAddress)
         except ValueError:
             return
-        except Exception:  # pylint:disable=broad-exception-caught
+        except Exception:
             self.logger.error(
                 'Error within sendOutOrStoreMyV3Pubkey. Could not read'
                 ' the keys from the keys.dat file for a requested'
@@ -393,7 +390,7 @@ class singleWorker(StoppableThread):
             # The user deleted the address out of the keys.dat file
             # before this finished.
             pass
-        except:  # noqa:E722
+        except:
             self.logger.warning("BMConfigParser().set didn't work")
 
     def sendOutOrStoreMyV4Pubkey(self, myAddress):
@@ -426,7 +423,7 @@ class singleWorker(StoppableThread):
                 self._getKeysForAddress(myAddress)
         except ValueError:
             return
-        except Exception:  # pylint:disable=broad-exception-caught
+        except Exception:
             self.logger.error(
                 'Error within sendOutOrStoreMyV4Pubkey. Could not read'
                 ' the keys from the keys.dat file for a requested'
@@ -518,8 +515,8 @@ class singleWorker(StoppableThread):
 
         inventoryHash = highlevelcrypto.calculateInventoryHash(payload)
         state.Inventory[inventoryHash] = (
-            objectType, streamNumber, buffer(payload),  # noqa: F821
-            embeddedTime, buffer(tag)  # noqa: F821
+            objectType, streamNumber, buffer(payload),
+            embeddedTime, buffer(tag)
         )
         self.logger.info(
             'sending inv (within sendOnionPeerObj function) for object: %s',
@@ -713,7 +710,6 @@ class singleWorker(StoppableThread):
 
     def sendMsg(self):
         """Send a message-type object (assemble the object, perform PoW and put it to the inv announcement queue)"""
-        # pylint: disable=too-many-nested-blocks
         # Reset just in case
         sqlExecute(
             '''UPDATE sent SET status='msgqueued' '''
@@ -923,7 +919,7 @@ class singleWorker(StoppableThread):
                 queryreturn = sqlQuery(
                     'SELECT transmitdata FROM pubkeys WHERE address=?',
                     toaddress)
-                for row in queryreturn:  # pylint: disable=redefined-outer-name
+                for row in queryreturn:
                     pubkeyPayload, = row
 
                 # The pubkey message is stored with the following items
@@ -1231,7 +1227,7 @@ class singleWorker(StoppableThread):
                 encrypted = highlevelcrypto.encrypt(
                     payload, "04" + hexlify(pubEncryptionKeyBase256)
                 )
-            except:  # noqa:E722
+            except:
                 self.logger.warning("highlevelcrypto.encrypt didn't work")
                 sqlExecute(
                     '''UPDATE sent SET status='badkey' WHERE ackdata=? AND folder='sent' ''',
@@ -1342,7 +1338,7 @@ class singleWorker(StoppableThread):
                     if apiNotifyPath:
                         # There is no additional risk of remote exploitation or
                         # privilege escalation
-                        call([apiNotifyPath, "newMessage"])  # nosec B603
+                        call([apiNotifyPath, "newMessage"])
 
     def requestPubKey(self, toAddress):
         """Send a getpubkey object"""

@@ -1,7 +1,6 @@
 """
 Address validator module.
 """
-# pylint: disable=too-many-branches,too-many-arguments
 
 from Queue import Empty
 

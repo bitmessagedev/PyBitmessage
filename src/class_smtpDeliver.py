@@ -1,7 +1,6 @@
 """
 SMTP client thread for delivering emails
 """
-# pylint: disable=unused-variable
 
 import smtplib
 from email.header import Header
@@ -35,8 +34,6 @@ class smtpDeliver(StoppableThread):
         return cls._instance
 
     def run(self):
-        # pylint: disable=too-many-branches,too-many-statements,too-many-locals
-        # pylint: disable=deprecated-lambda
         while state.shutdown == 0:
             command, data = queues.UISignalQueue.get()
             if command == 'writeNewAddressToTable':
@@ -76,7 +73,7 @@ class smtpDeliver(StoppableThread):
                         'Delivered via SMTP to %s through %s:%i ...',
                         to, u.hostname, u.port)
                     client.quit()
-                except:  # noqa:E722
+                except:
                     self.logger.error('smtp delivery error', exc_info=True)
             elif command == 'displayNewSentMessage':
                 toAddress, fromLabel, fromAddress, subject, message, ackdata = data

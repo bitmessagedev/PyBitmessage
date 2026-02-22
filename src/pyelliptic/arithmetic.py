@@ -73,7 +73,6 @@ def changebase(string, frm, to, minlen=0):
 
 def base10_add(a, b):
     """Adding the numbers that are of base10"""
-    # pylint: disable=too-many-function-args
     if a is None:
         return b[0], b[1]
     if b is None:
