@@ -28,7 +28,6 @@ from account import (
 from addresses import decodeAddress, addBMIfNotPresent
 from bitmessageui import Ui_MainWindow
 from bmconfigparser import config
-import namecoin
 from messageview import MessageView
 from migrationwizard import Ui_MigrationWizard
 from foldertree import (
@@ -189,8 +188,6 @@ class MyForm(settingsmixin.SMainWindow):
             "clicked()"), self.click_pushButtonClear)
         QtCore.QObject.connect(self.ui.pushButtonSend, QtCore.SIGNAL(
             "clicked()"), self.click_pushButtonSend)
-        QtCore.QObject.connect(self.ui.pushButtonFetchNamecoinID, QtCore.SIGNAL(
-            "clicked()"), self.click_pushButtonFetchNamecoinID)
         QtCore.QObject.connect(self.ui.actionSettings, QtCore.SIGNAL(
             "triggered()"), self.click_actionSettings)
         QtCore.QObject.connect(self.ui.actionAbout, QtCore.SIGNAL(
@@ -850,7 +847,6 @@ class MyForm(settingsmixin.SMainWindow):
             "valueChanged(int)"), self.updateTTL)
 
         self.initSettings()
-        self.resetNamecoinConnection()
         self.sqlInit()
         self.indicatorInit()
         self.notifierInit()
@@ -2355,18 +2351,6 @@ class MyForm(settingsmixin.SMainWindow):
                 " select \'Send message to this address\'."
             ))
 
-    def click_pushButtonFetchNamecoinID(self):
-        identities = str(self.ui.lineEditTo.text().toUtf8()).split(";")
-        err, addr = self.namecoin.query(identities[-1].strip())
-        if err is not None:
-            self.updateStatusBar(
-                _translate("MainWindow", "Error: %1").arg(err))
-        else:
-            identities[-1] = addr
-            self.ui.lineEditTo.setText("; ".join(identities))
-            self.updateStatusBar(_translate(
-                "MainWindow", "Fetched address from namecoin identity."))
-
     def setBroadcastEnablementDependingOnWhetherThisIsAMailingListAddress(self, address):
         # If this is a chan then don't let people broadcast because no one
         # should subscribe to chan addresses.
@@ -2723,10 +2707,6 @@ class MyForm(settingsmixin.SMainWindow):
             'bitmessagesettings', 'dontconnect', str(dontconnect_option))
         config.save()
         self.ui.updateNetworkSwitchMenuLabel(dontconnect_option)
-
-        self.ui.pushButtonFetchNamecoinID.setHidden(
-            dontconnect_option or self.namecoin.test()[0] == 'failed'
-        )
 
     # Quit selected from menu or application indicator
     def quit(self):
@@ -4205,22 +4185,6 @@ class MyForm(settingsmixin.SMainWindow):
             self.statusbar.addImportant(message)
         else:
             self.statusbar.showMessage(message, 10000)
-
-    def resetNamecoinConnection(self):
-        namecoin.ensureNamecoinOptions()
-        self.namecoin = namecoin.namecoinConnection()
-
-        # Check to see whether we can connect to namecoin.
-        # Hide the 'Fetch Namecoin ID' button if we can't.
-        if config.safeGetBoolean(
-            'bitmessagesettings', 'dontconnect'
-        ) or self.namecoin.test()[0] == 'failed':
-            logger.warning(
-                'There was a problem testing for a Namecoin daemon.'
-                ' Hiding the Fetch Namecoin ID button')
-            self.ui.pushButtonFetchNamecoinID.hide()
-        else:
-            self.ui.pushButtonFetchNamecoinID.show()
 
     def initSettings(self):
         self.loadSettings()

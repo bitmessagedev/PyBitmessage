@@ -11,7 +11,6 @@ from PyQt4 import QtCore, QtGui
 
 import debug
 import defaults
-import namecoin
 import openclpow
 import paths
 import queues
@@ -240,28 +239,6 @@ class SettingsDialog(QtGui.QDialog):
                 self.comboBoxOpenCL.setCurrentIndex(i)
                 break
 
-        # Namecoin integration tab
-        nmctype = config.get('bitmessagesettings', 'namecoinrpctype')
-        self.lineEditNamecoinHost.setText(
-            config.get('bitmessagesettings', 'namecoinrpchost'))
-        self.lineEditNamecoinPort.setText(str(
-            config.get('bitmessagesettings', 'namecoinrpcport')))
-        self.lineEditNamecoinUser.setText(
-            config.get('bitmessagesettings', 'namecoinrpcuser'))
-        self.lineEditNamecoinPassword.setText(
-            config.get('bitmessagesettings', 'namecoinrpcpassword'))
-
-        if nmctype == "namecoind":
-            self.radioButtonNamecoinNamecoind.setChecked(True)
-        elif nmctype == "nmcontrol":
-            self.radioButtonNamecoinNmcontrol.setChecked(True)
-            self.lineEditNamecoinUser.setEnabled(False)
-            self.labelNamecoinUser.setEnabled(False)
-            self.lineEditNamecoinPassword.setEnabled(False)
-            self.labelNamecoinPassword.setEnabled(False)
-        else:
-            assert False
-
         # Message Resend tab
         self.lineEditDays.setText(str(
             config.get('bitmessagesettings', 'stopresendingafterxdays')))
@@ -287,50 +264,6 @@ class SettingsDialog(QtGui.QDialog):
             if self.checkBoxAuthentication.isChecked():
                 self.lineEditSocksUsername.setEnabled(True)
                 self.lineEditSocksPassword.setEnabled(True)
-
-    def getNamecoinType(self):
-        """
-        Check status of namecoin integration radio buttons
-        and translate it to a string as in the options.
-        """
-        if self.radioButtonNamecoinNamecoind.isChecked():
-            return "namecoind"
-        if self.radioButtonNamecoinNmcontrol.isChecked():
-            return "nmcontrol"
-        assert False
-
-    # Namecoin connection type was changed.
-    def namecoinTypeChanged(self, checked):
-        """A callback for toggled event of radioButtonNamecoinNamecoind"""
-        nmctype = self.getNamecoinType()
-        assert nmctype == "namecoind" or nmctype == "nmcontrol"
-
-        isNamecoind = (nmctype == "namecoind")
-        self.lineEditNamecoinUser.setEnabled(isNamecoind)
-        self.labelNamecoinUser.setEnabled(isNamecoind)
-        self.lineEditNamecoinPassword.setEnabled(isNamecoind)
-        self.labelNamecoinPassword.setEnabled(isNamecoind)
-
-        if isNamecoind:
-            self.lineEditNamecoinPort.setText(defaults.namecoinDefaultRpcPort)
-        else:
-            self.lineEditNamecoinPort.setText("9000")
-
-    def click_pushButtonNamecoinTest(self):
-        """Test the namecoin settings specified in the settings dialog."""
-        self.labelNamecoinTestResult.setText(
-            _translate("MainWindow", "Testing..."))
-        nc = namecoin.namecoinConnection({
-            'type': self.getNamecoinType(),
-            'host': str(self.lineEditNamecoinHost.text().toUtf8()),
-            'port': str(self.lineEditNamecoinPort.text().toUtf8()),
-            'user': str(self.lineEditNamecoinUser.text().toUtf8()),
-            'password': str(self.lineEditNamecoinPassword.text().toUtf8())
-        })
-        status, text = nc.test()
-        self.labelNamecoinTestResult.setText(text)
-        if status == 'success':
-            self.parent.namecoin = nc
 
     def save_font_setting(self, font):
         """Save user font setting and set the buttonFont text"""
@@ -480,18 +413,6 @@ class SettingsDialog(QtGui.QDialog):
 
         self.config.set('bitmessagesettings', 'maxoutboundconnections', str(
             int(float(self.lineEditMaxOutboundConnections.text()))))
-
-        self.config.set(
-            'bitmessagesettings', 'namecoinrpctype', self.getNamecoinType())
-        self.config.set('bitmessagesettings', 'namecoinrpchost', str(
-            self.lineEditNamecoinHost.text()))
-        self.config.set('bitmessagesettings', 'namecoinrpcport', str(
-            self.lineEditNamecoinPort.text()))
-        self.config.set('bitmessagesettings', 'namecoinrpcuser', str(
-            self.lineEditNamecoinUser.text()))
-        self.config.set('bitmessagesettings', 'namecoinrpcpassword', str(
-            self.lineEditNamecoinPassword.text()))
-        self.parent.resetNamecoinConnection()
 
         # Demanded difficulty tab
         if float(self.lineEditTotalDifficulty.text()) >= 1:

@@ -7,7 +7,6 @@ SOURCES	= 	../addresses.py\
 			../class_sqlThread.py\
 			../helper_msgcoding.py\
 			../helper_search.py\
-                        ../namecoin.py\
 			../proofofwork.py\
 			../upnp.py\
 			../bitmessageqt/__init__.py\
