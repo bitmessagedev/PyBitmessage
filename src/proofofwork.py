@@ -8,7 +8,6 @@ import logging
 import os
 import subprocess
 import sys
-import tempfile
 import time
 from struct import pack, unpack
 
@@ -28,51 +27,7 @@ logger = logging.getLogger(__name__)
 
 bitmsglib = 'bitmsghash.so'
 bmpow = None
-
-
-class LogOutput(object):
-    """
-    A context manager that block stdout for its scope
-    and appends it's content to log before exit. Usage::
-
-    with LogOutput():
-        os.system('ls -l')
-
-    https://stackoverflow.com/questions/5081657
-    """
-
-    def __init__(self, prefix='PoW'):
-        self.prefix = prefix
-        try:
-            sys.stdout.flush()
-            self._stdout = sys.stdout
-            self._stdout_fno = os.dup(sys.stdout.fileno())
-        except AttributeError:
-            # NullWriter instance has no attribute 'fileno' on Windows
-            self._stdout = None
-        else:
-            self._dst, self._filepath = tempfile.mkstemp()
-
-    def __enter__(self):
-        if not self._stdout:
-            return
-        stdout = os.dup(1)
-        os.dup2(self._dst, 1)
-        os.close(self._dst)
-        sys.stdout = os.fdopen(stdout, 'w')
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if not self._stdout:
-            return
-        sys.stdout.close()
-        sys.stdout = self._stdout
-        sys.stdout.flush()
-        os.dup2(self._stdout_fno, 1)
-
-        with open(self._filepath) as out:
-            for line in out:
-                logger.info('%s: %s', self.prefix, line)
-        os.remove(self._filepath)
+bmnumpowthreads = None
 
 
 def _set_idle():
@@ -166,13 +121,12 @@ def _doFastPoW(target, initialHash):
 
 
 def _doCPoW(target, initialHash):
-    with LogOutput():
-        h = initialHash
-        m = target
-        out_h = ctypes.pointer(ctypes.create_string_buffer(h, 64))
-        out_m = ctypes.c_ulonglong(m)
-        logger.debug('C PoW start')
-        nonce = bmpow(out_h, out_m)
+    h = initialHash
+    m = target
+    out_h = ctypes.pointer(ctypes.create_string_buffer(h, 64))
+    out_m = ctypes.c_ulonglong(m)
+    logger.debug('C PoW start')
+    nonce = bmpow(out_h, out_m)
 
     trialValue = trial_value(nonce, initialHash)
     if state.shutdown != 0:
@@ -399,5 +353,12 @@ def init():
                     'Failed to setup bmpow lib %s', bso, exc_info=True)
                 return
 
+    if bso:
+        try:
+            bmnumpowthreads = bso.getnumthreads
+            bmnumpowthreads.restype = ctypes.c_uint
+            logger.info('PoW: Number of threads: %i', bmnumpowthreads())
+        except Exception:
+            logger.exception('Failed to determine number of PoW threads')
     if bmpow is None:
         buildCPoW()

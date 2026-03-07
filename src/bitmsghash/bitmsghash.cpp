@@ -73,7 +73,7 @@ void * threadfunc(void* param) {
 #endif
 }
 
-void getnumthreads()
+extern "C" EXPORT unsigned int getnumthreads()
 {
 #ifdef _WIN32
 	DWORD_PTR dwProcessAffinity, dwSystemAffinity;
@@ -121,7 +121,7 @@ void getnumthreads()
 			numthreads++;
 	if (numthreads == 0) // something failed
 		numthreads = 1;
-	printf("Number of threads: %i\n", (int)numthreads);
+	return numthreads;
 }
 
 extern "C" EXPORT unsigned long long BitmessagePOW(unsigned char * starthash, unsigned long long target)
