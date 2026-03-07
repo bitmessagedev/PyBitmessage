@@ -55,8 +55,8 @@ import sound
 import bitmessage_icons_rc
 import helper_sent
 
-from six.moves import iteritems, itervalues, range as xrange
-from six import text_type
+from six import iteritems, itervalues, text_type
+from six.moves import xrange
 
 
 logger = logging.getLogger(__name__)
