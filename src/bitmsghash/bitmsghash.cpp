@@ -89,7 +89,7 @@ extern "C" EXPORT unsigned int getnumthreads()
 #endif
 	size_t len = sizeof(dwProcessAffinity);
 	if (numthreads > 0)
-		return;
+		return numthreads;
 #ifdef _WIN32
 	GetProcessAffinityMask(GetCurrentProcess(), &dwProcessAffinity, &dwSystemAffinity);
 #elif __linux__
